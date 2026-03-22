@@ -23,13 +23,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ja">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        // Todo Providerを作成する。
         <AppProvider>
-          <Header>
-            <div>
-              <Sidebar>{children}</Sidebar>
-            </div>
-          </Header>
+          <Header />
+          <div>
+            <Sidebar />
+            <main className="flex h-[calc(100vh-72px)] font-light">
+              {children}
+            </main>
+          </div>
         </AppProvider>
       </body>
     </html>

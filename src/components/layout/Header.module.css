@@ -1,0 +1,15 @@
+  /* iconの共通スタイル */
+  .icon_interactiveHoverDark {
+    transition: color 0.5s;
+  }
+
+  .icon_interactive {
+    cursor: pointer;
+  }
+
+  .icon_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
