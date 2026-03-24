@@ -20,7 +20,9 @@ export const Header = () => {
           <ul className="flex mr-4 items-center">
             <li className="mr-4">
               <div
-                className={`${styles.icon_interactiveHoverDark} ${styles.icon_interactive} ${styles.icon_container}`}
+                className={
+                  "transition-colors duration-500 cursor-pointer flex justify-center items-center h-full"
+                }
               >
                 <svg
                   stroke="currentColor"
@@ -44,7 +46,9 @@ export const Header = () => {
             </li>
             <li className="mr-4">
               <div
-                className={`${styles.icon_interactiveHoverDark} ${styles.icon_interactive} ${styles.icon_container}`}
+                className={
+                  "transition-colors duration-500 cursor-pointer flex justify-center items-center h-full"
+                }
               >
                 <svg
                   stroke="currentColor"
@@ -62,7 +66,9 @@ export const Header = () => {
             </li>
             <li className="mr-4">
               <div
-                className={`${styles.icon_interactiveHoverDark} ${styles.icon_interactive} ${styles.icon_container}`}
+                className={
+                  "transition-colors duration-500 cursor-pointer flex justify-center items-center h-full"
+                }
               >
                 <svg
                   stroke="currentColor"
@@ -86,7 +92,9 @@ export const Header = () => {
             <div className="cursor-pointer">
               <div className="bg-[#e0e0e0] h-7 w-7 rounded-full flex justify-center items-center">
                 <div
-                  className={`${styles.icon_interactiveHoverDark} ${styles.icon_interactive} ${styles.icon_container}`}
+                  className={
+                    "transition-colors duration-500 cursor-pointer flex justify-center items-center h-full"
+                  }
                 >
                   <svg
                     stroke="currentColor"
