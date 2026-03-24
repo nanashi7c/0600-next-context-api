@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+:root {
+  --primary-color: #42b883;
+  --font-color-light: #fff;
+}
+
+@theme {
+  --color-brand: var(--primary-color);
+  --color-light: var(--font-color-light);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: revert;
+  /* ブラウザのデフォルト（bold等）に戻す */
+}
