@@ -3,15 +3,13 @@ import "./globals.css";
 import { AppProvider } from "../contexts/AppContext";
 import { Header } from "../components/layout/Header";
 import { Sidebar } from "../components/layout/Sidebar";
+import { Inter } from "next/font/google";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+//フォント読み込み
+const inter = Inter({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  // 適用weight指定
+  weight: ["300", "400", "500", "700"],
 });
 
 export const metadata = {
@@ -22,14 +20,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ja">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body
+        // className={`{inter.className} ${geistSans.variable} ${geistMono.variable}`}
+        className={inter.className}
+      >
         <AppProvider>
           <Header />
-          <div>
+          <div className="flex h-[calc(100vh-72px)] font-light">
             <Sidebar />
-            <main className="flex h-[calc(100vh-72px)] font-light">
-              {children}
-            </main>
+            <main className="flex font-light">{children}</main>
           </div>
         </AppProvider>
       </body>
