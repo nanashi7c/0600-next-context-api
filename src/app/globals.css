@@ -3,6 +3,8 @@
 :root {
   --primary-color: #42b883;
   --font-color-light: #fff;
+  --hover-color: #f0f0f0;
+  --font-color-dark: #55655c;
 }
 
 @theme {
@@ -18,4 +20,12 @@ h5,
 h6 {
   font-weight: revert;
   /* ブラウザのデフォルト（bold等）に戻す */
+}
+
+ul {
+  list-style-type: none;
+}
+
+body {
+  font-style: normal;
 }
