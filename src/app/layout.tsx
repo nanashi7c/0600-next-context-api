@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
           <Header />
           <div className="flex h-[calc(100vh-72px)] font-light">
             <Sidebar />
-            <main className="flex font-light">{children}</main>
+            <main className="flex font-light flex-1 min-w-0">{children}</main>
           </div>
         </AppProvider>
       </body>

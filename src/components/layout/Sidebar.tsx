@@ -3,7 +3,7 @@
 export const Sidebar = () => {
   return (
     // 右側に余白
-    <div className="w-73 bg">
+    <div className="w-73 shrink-0">
       {/* コンテンツ部分 */}
       <div className="h-calc(100%-80px)] pr-">
         {/* 上側の余白 */}
