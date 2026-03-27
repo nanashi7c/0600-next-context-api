@@ -3,9 +3,9 @@
 export const Sidebar = () => {
   return (
     // 右側に余白
-    <div className="w-73 shrink-0">
+    <div className="w-73 min-w-73">
       {/* コンテンツ部分 */}
-      <div className="h-calc(100%-80px)] pr-">
+      <div className="h-[calc(100%-80px)]">
         {/* 上側の余白 */}
         <div className="flex justify-end h-10 p-4">
           {/* サイドバーのトグル */}

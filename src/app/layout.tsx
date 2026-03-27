@@ -17,6 +17,11 @@ export const metadata = {
   description: "Todo app",
 };
 
+// export const viewport = {
+//   width: "device-width",
+//   initialScale: 1,
+// };
+
 export default function RootLayout({ children }) {
   return (
     <html lang="ja">
@@ -26,7 +31,7 @@ export default function RootLayout({ children }) {
       >
         <AppProvider>
           <Header />
-          <div className="flex h-[calc(100vh-72px)] font-light">
+          <div className="flex h-[calc(100vh-72px)] font-light overflow-x-auto">
             <Sidebar />
             <main className="flex font-light flex-1 min-w-0">{children}</main>
           </div>
