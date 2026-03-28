@@ -38,7 +38,7 @@ export const Header = () => {
                     fill="none"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    stroke-width="32"
+                    strokeWidth="32"
                     d="M256 112v288m144-144H112"
                   />
                 </svg>
