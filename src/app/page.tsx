@@ -17,11 +17,11 @@ async function getUserStats() {
 export default function Home() {
   const [stats, setStats] = useState<any>();
 
-  console.log("stats", stats);
-  console.log("stats label", stats?.data.data[0].label);
-  console.log("stats data", stats?.data.data[0].data);
-  console.log("stats data.date", stats?.data.data[0].data[0].date);
-  console.log("stats data.date parse", stats?.data.data[0].data[0].date);
+  // console.log("stats", stats);
+  // console.log("stats label", stats?.data.data[0].label);
+  // console.log("stats data", stats?.data.data[0].data);
+  // console.log("stats data.date", stats?.data.data[0].data[0].date);
+  // console.log("stats data.date parse", stats?.data.data[0].data[0].date);
   Chart.register(...registerables);
 
   const canvasRef = useRef<HTMLCanvasElement>(null); // CanvasElementへのポインタ
