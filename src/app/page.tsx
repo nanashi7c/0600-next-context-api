@@ -1,58 +1,91 @@
 "use client";
+import axios from "axios";
 import { Chart, registerables } from "chart.js";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import AppDate from "./api/lib/date";
+
+async function getUserStats() {
+  try {
+    const response = await axios.get("/api/v1/users/stats");
+    console.log(response.data.data);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 export default function Home() {
-  // const ctx = document.getElementById("myChart") as HTMLCanvasElement;
+  const [stats, setStats] = useState<any>();
 
-  // new Chart(ctx, {
-  //   type: "bar",
-  //   data: {
-  //     labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-  //     datasets: [
-  //       {
-  //         label: "# of Votes",
-  //         data: [12, 19, 3, 5, 2, 3],
-  //         borderWidth: 1,
-  //       },
-  //     ],
-  //   },
-  //   options: {
-  //     scales: {
-  //       y: {
-  //         beginAtZero: true,
-  //       },
-  //     },
-  //   },
-  // });
+  console.log("stats", stats);
+  console.log("stats label", stats?.data.data[0].label);
+  console.log("stats data", stats?.data.data[0].data);
+  console.log("stats data.date", stats?.data.data[0].data[0].date);
+  console.log("stats data.date parse", stats?.data.data[0].data[0].date);
   Chart.register(...registerables);
 
   const canvasRef = useRef<HTMLCanvasElement>(null); // CanvasElementへのポインタ
+
+  useEffect(() => {
+    async function fetchStats() {
+      const newStats = await getUserStats();
+      setStats(newStats);
+    }
+
+    fetchStats();
+  }, []);
 
   useEffect(() => {
     if (!canvasRef.current) return;
     const chart = new Chart(canvasRef.current, {
       type: "bar",
       data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        labels: stats?.data.data[0].data.map((item: any) => {
+          const d = new AppDate(new Date(item.date));
+          const month = (d.date.getMonth() + 1).toString().padStart(2, "0");
+          const day = d.date.getDate().toString().padStart(2, "0");
+          return `${month} / ${day}`;
+        }),
         datasets: [
           {
-            label: "# of Votes",
-            data: [12, 19, 3, 5, 2, 3],
+            label: stats?.data.data[0].label,
+            data: stats?.data.data[0].data.map((item: any) => item.value),
             borderWidth: 1,
+            backgroundColor: "rgba(143, 227, 199, 1)",
+            // backgroundColor: "rgba(87, 246, 193, 1)", // ホバー時
+            borderColor: "rgba(143, 227, 199, 1)",
+          },
+          {
+            label: stats?.data.data[1].label,
+            data: stats?.data.data[1].data.map((item: any) => item.value),
+            borderWidth: 1,
+            backgroundColor: "rgba(143, 227, 199, 0.36)",
+            borderColor: "rgba(143, 227, 199, 0.36)",
           },
         ],
       },
       options: {
+        interaction: {
+          mode: "index",
+        },
+        plugins: {
+          legend: {
+            position: "bottom",
+          },
+        },
+
         scales: {
+          x: {
+            stacked: true,
+          },
           y: {
-            beginAtZero: true,
+            stacked: true,
           },
         },
       },
     });
     return () => chart.destroy(); // クリーンアップ（二重初期化防止）
-  }, []);
+  }, [stats]);
 
   return (
     //   {/* コンテンツ周りの余白 */}
