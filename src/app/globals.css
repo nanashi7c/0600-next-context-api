@@ -44,4 +44,11 @@
     font-weight: revert;
     /* ブラウザのデフォルト（bold等）に戻す */
   }
+
+  /* canvas {
+    display: block;
+    box-sizing: border-box;
+    height: 408px;
+    width: 816px;
+  } */
 }

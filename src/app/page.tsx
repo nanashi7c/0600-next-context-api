@@ -1,4 +1,29 @@
+"use client";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { ProgressChart } from "../components/dashboard/ProgressChart";
+
+async function getUserStats() {
+  try {
+    const response = await axios.get("/api/v1/users/stats");
+    console.log(response.data.data);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export default function Home() {
+  const [stats, setStats] = useState<any>();
+
+  useEffect(() => {
+    async function fetchStats() {
+      const newStats = await getUserStats();
+      setStats(newStats);
+    }
+    fetchStats();
+  }, []);
+
   return (
     //   {/* コンテンツ周りの余白 */}
     <div className="p-8 w-full h-full overflow-scroll">
@@ -23,12 +48,12 @@ export default function Home() {
                     プロジェクト1
                   </h2>
                   {/* カレンダーアイコンと期限日 */}
-                  <p className="flex items-center">
+                  <span className="flex items-center">
                     {/* カレンダーアイコン */}
                     <svg
                       stroke="currentColor"
                       fill="currentColor"
-                      stroke-width="0"
+                      strokeWidth="0"
                       viewBox="0 0 512 512"
                       color="rgba(0, 0, 140, 0.6)"
                       height="10px"
@@ -40,7 +65,7 @@ export default function Home() {
                     </svg>
                     {/* 期限日 */}
                     <p className="text-[10px] font-bold">2026/03/30</p>
-                  </p>
+                  </span>
                 </div>
                 {/* プロジェクトの内容 */}
                 <div className="py-4 px-0">
@@ -66,7 +91,7 @@ export default function Home() {
                         <svg
                           stroke="currentColor"
                           fill="currentColor"
-                          stroke-width="0"
+                          strokeWidth="0"
                           viewBox="0 0 512 512"
                           color="rgba(0, 0, 140, 0.6)"
                           height="12px"
@@ -87,7 +112,7 @@ export default function Home() {
                         <svg
                           stroke="currentColor"
                           fill="currentColor"
-                          stroke-width="0"
+                          strokeWidth="0"
                           viewBox="0 0 512 512"
                           color="rgba(0, 0, 140, 0.6)"
                           height="12px"
@@ -118,12 +143,12 @@ export default function Home() {
                     プロジェクト1
                   </h2>
                   {/* カレンダーアイコンと期限日 */}
-                  <p className="flex items-center">
+                  <span className="flex items-center">
                     {/* カレンダーアイコン */}
                     <svg
                       stroke="currentColor"
                       fill="currentColor"
-                      stroke-width="0"
+                      strokeWidth="0"
                       viewBox="0 0 512 512"
                       color="rgba(0, 0, 140, 0.6)"
                       height="10px"
@@ -135,7 +160,7 @@ export default function Home() {
                     </svg>
                     {/* 期限日 */}
                     <p className="text-[10px] font-bold">2026/03/30</p>
-                  </p>
+                  </span>
                 </div>
                 {/* プロジェクトの内容 */}
                 <div className="py-4 px-0">
@@ -161,7 +186,7 @@ export default function Home() {
                         <svg
                           stroke="currentColor"
                           fill="currentColor"
-                          stroke-width="0"
+                          strokeWidth="0"
                           viewBox="0 0 512 512"
                           color="rgba(0, 0, 140, 0.6)"
                           height="12px"
@@ -182,7 +207,7 @@ export default function Home() {
                         <svg
                           stroke="currentColor"
                           fill="currentColor"
-                          stroke-width="0"
+                          strokeWidth="0"
                           viewBox="0 0 512 512"
                           color="rgba(0, 0, 140, 0.6)"
                           height="12px"
@@ -213,12 +238,12 @@ export default function Home() {
                     プロジェクト1
                   </h2>
                   {/* カレンダーアイコンと期限日 */}
-                  <p className="flex items-center">
+                  <span className="flex items-center">
                     {/* カレンダーアイコン */}
                     <svg
                       stroke="currentColor"
                       fill="currentColor"
-                      stroke-width="0"
+                      strokeWidth="0"
                       viewBox="0 0 512 512"
                       color="rgba(0, 0, 140, 0.6)"
                       height="10px"
@@ -230,7 +255,7 @@ export default function Home() {
                     </svg>
                     {/* 期限日 */}
                     <p className="text-[10px] font-bold">2026/03/30</p>
-                  </p>
+                  </span>
                 </div>
                 {/* プロジェクトの内容 */}
                 <div className="py-4 px-0">
@@ -256,7 +281,7 @@ export default function Home() {
                         <svg
                           stroke="currentColor"
                           fill="currentColor"
-                          stroke-width="0"
+                          strokeWidth="0"
                           viewBox="0 0 512 512"
                           color="rgba(0, 0, 140, 0.6)"
                           height="12px"
@@ -277,7 +302,7 @@ export default function Home() {
                         <svg
                           stroke="currentColor"
                           fill="currentColor"
-                          stroke-width="0"
+                          strokeWidth="0"
                           viewBox="0 0 512 512"
                           color="rgba(0, 0, 140, 0.6)"
                           height="12px"
@@ -309,16 +334,11 @@ export default function Home() {
         <div className="">
           <h2 className="text-sm font-thin">進捗</h2>
           {/* チャート描画領域 */}
-          <div py-4>
+          <div className="py-4">
             {/* チャート */}
-            <div mt-16>
+            <div className="mt-16">
               <div>
-                <canvas
-                  role="img"
-                  height="708"
-                  width="1416"
-                  className="block border-box h-88.5 w-177"
-                />
+                <ProgressChart datasets={stats} />
               </div>
             </div>
           </div>
@@ -338,7 +358,7 @@ export default function Home() {
               <svg
                 stroke="currentColor"
                 fill="currentColor"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 512 512"
                 className=""
                 height="10"
@@ -347,9 +367,9 @@ export default function Home() {
               >
                 <path
                   fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="48"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="48"
                   d="M268 112l144 144-144 144m124-144H100"
                 ></path>
               </svg>
@@ -385,7 +405,7 @@ export default function Home() {
                   <svg
                     stroke="currentColor"
                     fill="currentColor"
-                    stroke-width="0"
+                    strokeWidth="0"
                     viewBox="0 0 512 512"
                     height="1em"
                     width="1em"
@@ -402,7 +422,7 @@ export default function Home() {
                   <svg
                     stroke="currentColor"
                     fill="currentColor"
-                    stroke-width="0"
+                    strokeWidth="0"
                     viewBox="0 0 512 512"
                     height="1em"
                     width="1em"
@@ -426,7 +446,7 @@ export default function Home() {
                       <svg
                         stroke="currentColor"
                         fill="currentColor"
-                        stroke-width="0"
+                        strokeWidth="0"
                         viewBox="0 0 512 512"
                         className="table_detailIcon__v9v_Q"
                         height="1em"
@@ -435,9 +455,9 @@ export default function Home() {
                       >
                         <path
                           fill="none"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="48"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="48"
                           d="M268 112l144 144-144 144m124-144H100"
                         ></path>
                       </svg>
