@@ -7,7 +7,7 @@ import AppDate from "./api/lib/date";
 async function getUserStats() {
   try {
     const response = await axios.get("/api/v1/users/stats");
-    console.log(response.data.data);
+    // console.log(response.data.data);
     return response;
   } catch (error) {
     console.error(error);
@@ -17,7 +17,7 @@ async function getUserStats() {
 async function getUserTasks() {
   try {
     const response = await axios.get("/api/v1/users/tasks");
-    console.log(response.data.data);
+    // console.log(response.data.data);
     return response;
   } catch (error) {
     console.error(error);
@@ -27,6 +27,7 @@ async function getUserTasks() {
 export default function Home() {
   const [stats, setStats] = useState<any>();
   const [tasks, setTasks] = useState<any>();
+  console.log("tasks", tasks);
 
   // console.log("stats", stats);
   // console.log("stats label", stats?.data.data[0].label);
@@ -481,13 +482,15 @@ export default function Home() {
               {/* タスク */}
               <div className="pl-4 w-1/2 flex items-center py-2 text-xs">
                 <div className="cursor-pointer w-full ">
-                  <p className="min-w-full">タスク100</p>
+                  <p className="min-w-full">{tasks?.data.data[0].title}</p>
                 </div>
               </div>
               {/* プロジェクト */}
               <div className="w-[14%] flex items-center py-2 text-xs">
                 <div className="cursor-pointer w-full flex items-center p-2 justify-between">
-                  <p className="min-h-full">プログラミング</p>
+                  <p className="min-h-full">
+                    {tasks?.data.data[0].project.name}
+                  </p>
                   <svg
                     stroke="currentColor"
                     fill="currentColor"
@@ -504,7 +507,13 @@ export default function Home() {
               {/* ステータス */}
               <div className="w-[12%] flex items-center py-2 text-xs">
                 <div className="cursor-pointer w-full flex items-center p-2 justify-between">
-                  <p className="min-h-full">未完了</p>
+                  <p className="min-h-full">
+                    {tasks?.data.data[0].status === "completed"
+                      ? "完了"
+                      : tasks?.data.data[0].status === "archived"
+                        ? "アーカイブ済み"
+                        : "未完了"}
+                  </p>
                   <svg
                     stroke="currentColor"
                     fill="currentColor"
@@ -521,7 +530,7 @@ export default function Home() {
               {/* 期限日 */}
               <div className="w-1/10 flex items-center py-2 text-xs">
                 <div className="cursor-pointer w-full flex items-center">
-                  <p className="min-w-full">2026/04/09</p>
+                  <p className="min-w-full">{tasks?.data.data[0].deadline ? new Date(tasks?.data.data[0].deadline).toLocaleDateString('ja-JP') : ""}</p>
                 </div>
               </div>
               {/* 編集画面へのリンク */}
