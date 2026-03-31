@@ -14,8 +14,19 @@ async function getUserStats() {
   }
 }
 
+async function getUserTasks() {
+  try {
+    const response = await axios.get("/api/v1/users/tasks");
+    console.log(response.data.data);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export default function Home() {
   const [stats, setStats] = useState<any>();
+  const [tasks, setTasks] = useState<any>();
 
   // console.log("stats", stats);
   // console.log("stats label", stats?.data.data[0].label);
@@ -31,8 +42,13 @@ export default function Home() {
       const newStats = await getUserStats();
       setStats(newStats);
     }
+    async function fetchTasks() {
+      const newTasks = await getUserTasks();
+      setTasks(newTasks);
+    }
 
     fetchStats();
+    fetchTasks();
   }, []);
 
   useEffect(() => {
