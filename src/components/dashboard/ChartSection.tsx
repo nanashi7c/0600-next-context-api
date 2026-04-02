@@ -1,4 +1,3 @@
-import React from "react";
 import { useStats } from "../../contexts/StatsContext";
 import { ProgressChart } from "../chart/ProgressChart";
 

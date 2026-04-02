@@ -2,7 +2,6 @@ import { Chart, registerables } from "chart.js";
 import AppDate from "../../app/api/lib/date";
 import { useEffect, useMemo, useRef } from "react";
 import { StatsResponse } from "../../types";
-import { StatsParams } from "../../app/api/datastore/models/stats";
 
 interface ProgressChartProps {
   datasets: StatsResponse;

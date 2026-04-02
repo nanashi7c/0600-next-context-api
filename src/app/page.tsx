@@ -1,12 +1,8 @@
 "use client";
-import { ProgressChart } from "../components/chart/ProgressChart";
 import { ChartSection } from "../components/dashboard/ChartSection";
 import { TaskList } from "../components/tasks/TaskList";
-import { useTasks } from "../contexts/TasksContext";
 
 export default function DashboardPage() {
-  const { tasks } = useTasks();
-
   return (
     //   {/* コンテンツ周りの余白 */}
     <div className="p-8 w-full h-full overflow-scroll">
