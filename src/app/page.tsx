@@ -1,16 +1,11 @@
 "use client";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { ProgressChart } from "../components/dashboard/ProgressChart";
+import { ProgressChart } from "../components/chart/ProgressChart";
+import { ChartSection } from "../components/dashboard/ChartSection";
 import { TaskList } from "../components/tasks/TaskList";
-import { useApp } from "../contexts/AppContext";
-// import { fetchStats, fetchTasks } from "../lib/api";
+import { useTasks } from "../contexts/TasksContext";
 
 export default function DashboardPage() {
-  // const [stats, setStats] = useState<any>();
-  // const [tasks, setTasks] = useState<any>();
-  const { stats, tasks } = useApp();
-  console.log("tasks", tasks);
+  const { tasks } = useTasks();
 
   return (
     //   {/* コンテンツ周りの余白 */}
@@ -326,7 +321,7 @@ export default function DashboardPage() {
             {/* チャート */}
             <div className="mt-16">
               <div>
-                <ProgressChart datasets={stats} />
+                <ChartSection />
               </div>
             </div>
           </div>
@@ -376,7 +371,7 @@ export default function DashboardPage() {
             <div className="w-[8%] p-1 text-[10px] font-bold"></div>
           </div>
           {/* タスク一覧データ */}
-          <TaskList tasks={tasks} />
+          <TaskList />
         </div>
       </div>
     </div>

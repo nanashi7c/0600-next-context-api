@@ -3,7 +3,8 @@
     "allow": [
       "WebFetch(domain:github.com)",
       "Bash(curl -s http://localhost:3099/api/v1/users/stats)",
-      "Bash(curl -s http://localhost:3099/api/v1/users/tasks)"
+      "Bash(curl -s http://localhost:3099/api/v1/users/tasks)",
+      "Bash(where gh:*)"
     ]
   }
 }

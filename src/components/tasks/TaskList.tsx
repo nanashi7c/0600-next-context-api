@@ -1,9 +1,13 @@
-export const TaskList = ({ tasks }) => {
+import { TaskParams } from "../../app/api/datastore/models/task";
+import { useTasks } from "../../contexts/TasksContext";
+
+export const TaskList = () => {
+  const { tasks } = useTasks();
   return (
     <div>
       {/* 各タスク行 */}
       {/* TODO：受け取った20個のデータのループ */}
-      {tasks?.data.data.map((item: any) => (
+      {tasks?.data.map((item: TaskParams) => (
         <div className="flex py-2 transition-all duration-500">
           {/* タスク */}
           <div className="pl-4 w-1/2 flex items-center py-2 text-xs">
