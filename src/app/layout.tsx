@@ -1,9 +1,9 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { AppProvider } from "../contexts/AppContext";
 import { Header } from "../components/layout/Header";
 import { Sidebar } from "../components/layout/Sidebar";
 import { Inter } from "next/font/google";
+import { TasksProvider } from "../contexts/TasksContext";
+import { StatsProvider } from "../contexts/StatsContext";
 
 //フォント読み込み
 const inter = Inter({
@@ -17,11 +17,6 @@ export const metadata = {
   description: "Todo app",
 };
 
-// export const viewport = {
-//   width: "device-width",
-//   initialScale: 1,
-// };
-
 export default function RootLayout({ children }) {
   return (
     <html lang="ja">
@@ -29,13 +24,15 @@ export default function RootLayout({ children }) {
         // className={`{inter.className} ${geistSans.variable} ${geistMono.variable}`}
         className={inter.className}
       >
-        <AppProvider>
-          <Header />
-          <div className="flex h-[calc(100vh-72px)] font-light overflow-x-auto">
-            <Sidebar />
-            <main className="flex font-light flex-1 min-w-0">{children}</main>
-          </div>
-        </AppProvider>
+        <TasksProvider>
+          <StatsProvider>
+            <Header />
+            <div className="flex h-[calc(100vh-72px)] font-light overflow-x-auto">
+              <Sidebar />
+              <main className="flex font-light flex-1 min-w-0">{children}</main>
+            </div>
+          </StatsProvider>
+        </TasksProvider>
       </body>
     </html>
   );

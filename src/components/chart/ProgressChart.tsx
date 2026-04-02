@@ -1,20 +1,26 @@
 import { Chart, registerables } from "chart.js";
 import AppDate from "../../app/api/lib/date";
 import { useEffect, useMemo, useRef } from "react";
+import { StatsResponse } from "../../types";
 
-export const ProgressChart = ({ datasets }) => {
+interface ProgressChartProps {
+  datasets: StatsResponse;
+}
+
+export const ProgressChart = ({ datasets }: ProgressChartProps) => {
+  // console.log("datasets", datasets);
   Chart.register(...registerables);
 
   const canvasRef = useRef<HTMLCanvasElement>(null); // CanvasElementへのポインタ
   const chartData = useMemo(
     () => ({
-      labels: datasets?.data.data[0].data.map((item: any) => {
+      labels: datasets?.[0].data.map((item) => {
         const d = new AppDate(new Date(item.date));
         const month = (d.date.getMonth() + 1).toString().padStart(2, "0");
         const day = d.date.getDate().toString().padStart(2, "0");
         return `${month} / ${day}`;
       }),
-      datasets: datasets?.data.data.map((item: any, index: number) => {
+      datasets: datasets?.map((item: any, index: number) => {
         const alpha = index === 0 ? 1 : 0.36;
         return {
           label: item.label,
