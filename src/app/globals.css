@@ -53,7 +53,7 @@
   }
 
   button {
-    all: revert;
+    font-weight: revert;
   }
 
   textarea {
