@@ -2,13 +2,15 @@
 
 :root {
   --primary-color: #42b883;
+  --secondary-color: #1c3041;
   --font-color-light: #fff;
   --hover-color: #f0f0f0;
   --font-color-dark: #55655c;
   --background-color: #fff;
   --font-color-weak: #94ae9f;
   --table-border-color: #e2e2e290;
-
+  --content-bg-color: #fbfbfb;
+  --input-outline-color: #22222240;
 }
 
 @theme {
@@ -27,6 +29,7 @@
     font-style: normal;
     /* max-width: 100vw; */
     min-width: 292px;
+    color: var(--font-color-dark);
     /* overflow-x: auto; */
   }
 
@@ -43,6 +46,18 @@
   h6 {
     font-weight: revert;
     /* ブラウザのデフォルト（bold等）に戻す */
+  }
+
+  input {
+    all: revert;
+  }
+
+  button {
+    all: revert;
+  }
+
+  textarea {
+    all: revert;
   }
 
   /* canvas {
