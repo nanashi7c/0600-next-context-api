@@ -116,7 +116,7 @@ export default function TasksDetailPage() {
                 <textarea
                   rows={5}
                   placeholder="タスクの説明・メモ"
-                  className="p-4 rounded-lg border-0 shadow-[0_0_4px_1px_#22222210] leading-[1.6em] w-full text-(--font-color-dark) focus:outline focus:outline-[1.5px] focus:outline-(--input-outline-color) placeholder-[#757575]"
+                  className="p-4 rounded-lg border-0 shadow-[0_0_4px_1px_#22222210] leading-[1.6em] w-full text-(--font-color-dark) focus:outline-solid focus:outline-[1.5px] focus:outline-(--input-outline-color) placeholder-[#757575]"
                 />
               </div>
             </div>
