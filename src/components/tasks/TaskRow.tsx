@@ -1,0 +1,95 @@
+import React from "react";
+
+export const TaskRow = ({ task }) => {
+  return (
+    <div className="flex py-2 transition-all duration-500">
+      {/* タイトル */}
+      <div className="pl-4 w-1/2 flex items-center py-2 text-xs">
+        <div className="cursor-pointer w-full ">
+          {/* Todo: input要素 */}
+          {/* <div>
+                  <input type="text" />
+                </div> */}
+          <p className="min-w-full">{task.title}</p>
+        </div>
+      </div>
+      {/* プロジェクト */}
+      <div className="w-[14%] flex items-center py-2 text-xs">
+        <div className="cursor-pointer w-full flex items-center p-2 justify-between">
+          <p className="min-h-full">{task.project.name}</p>
+          <svg
+            stroke="currentColor"
+            fill="currentColor"
+            strokeWidth="0"
+            viewBox="0 0 512 512"
+            height="1em"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M98 190.06l139.78 163.12a24 24 0 0036.44 0L414 190.06c13.34-15.57 2.28-39.62-18.22-39.62h-279.6c-20.5 0-31.56 24.05-18.18 39.62z"></path>
+          </svg>
+        </div>
+      </div>
+      {/* ステータス */}
+      <div className="w-[12%] flex items-center py-2 text-xs">
+        <div className="cursor-pointer w-full flex items-center p-2 justify-between">
+          <p className="min-h-full">
+            {task.status === "completed"
+              ? "完了"
+              : task.status === "archived"
+                ? "アーカイブ済み"
+                : "未完了"}
+          </p>
+          <svg
+            stroke="currentColor"
+            fill="currentColor"
+            strokeWidth="0"
+            viewBox="0 0 512 512"
+            height="1em"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M98 190.06l139.78 163.12a24 24 0 0036.44 0L414 190.06c13.34-15.57 2.28-39.62-18.22-39.62h-279.6c-20.5 0-31.56 24.05-18.18 39.62z"></path>
+          </svg>
+        </div>
+      </div>
+      {/* 期限日 */}
+      <div className="w-1/10 flex items-center py-2 text-xs">
+        <div className="cursor-pointer w-full flex items-center">
+          <p className="min-w-full">
+            {task.deadline
+              ? new Date(task.deadline).toLocaleDateString("ja-JP")
+              : ""}
+          </p>
+        </div>
+      </div>
+      {/* 編集画面へのリンク */}
+      <div className="w-[8%] flex items-center py-2 text-xs">
+        <a href="">
+          <div className="cursor-pointer w-full flex items-center shadow-[2px_2px_4px_1px_#22222210]">
+            <div>
+              <svg
+                stroke="currentColor"
+                fill="currentColor"
+                strokeWidth="0"
+                viewBox="0 0 512 512"
+                className="table_detailIcon__v9v_Q"
+                height="1em"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="48"
+                  d="M268 112l144 144-144 144m124-144H100"
+                ></path>
+              </svg>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  );
+};
