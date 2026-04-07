@@ -1,44 +1,127 @@
-import React from "react";
+import { useEffect, useRef, useState } from "react";
+import { useProjects } from "../../contexts/ProjectsContext";
+import { updateUserTask } from "../../lib/api";
 
-export const TaskRow = ({ task }) => {
+export const TaskRow = ({ task, fetchTasks }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [draftTitle, setDraftTitle] = useState(task.title);
+  const titleInputRef = useRef(null);
+  const [isEditingTitle, setIsEditingTitle] = useState(false);
+  const [isEditingProject, setIsEditingProject] = useState(false);
+  const [isEditingStatus, setIsEditingStatus] = useState(false);
+  const [isEditingDeadline, setIsEditingDeadline] = useState(false);
+  const { projects } = useProjects();
+
+  useEffect(() => {
+    if (isEditingTitle && titleInputRef.current) {
+      titleInputRef.current.focus();
+    }
+  }, [isEditingTitle]);
+
+  const handleEditTitle = (id, value) => {};
+
   return (
     <div className="flex py-2 transition-all duration-500">
       {/* タイトル */}
       <div className="pl-4 w-1/2 flex items-center py-2 text-xs">
         <div className="cursor-pointer w-full ">
           {/* Todo: input要素 */}
-          {/* <div>
-                  <input type="text" />
-                </div> */}
-          <p className="min-w-full">{task.title}</p>
+          {isEditingTitle ? (
+            <div>
+              <input
+                type="text"
+                ref={titleInputRef}
+                value={draftTitle}
+                onChange={(e) => {
+                  setDraftTitle(e.target.value);
+                }}
+                onBlur={async (e) => {
+                  setIsEditingTitle(false);
+                  console.log("draftTitle", draftTitle);
+                  if (draftTitle != task.title) {
+                    await updateUserTask(task.id, { title: draftTitle });
+                    fetchTasks();
+                  }
+                }}
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
+          ) : (
+            <p onClick={() => setIsEditingTitle(true)} className="min-w-full">
+              {task.title}
+            </p>
+          )}
         </div>
       </div>
       {/* プロジェクト */}
       <div className="w-[14%] flex items-center py-2 text-xs">
-        <div className="cursor-pointer w-full flex items-center p-2 justify-between">
-          <p className="min-h-full">{task.project.name}</p>
-          <svg
-            stroke="currentColor"
-            fill="currentColor"
-            strokeWidth="0"
-            viewBox="0 0 512 512"
-            height="1em"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M98 190.06l139.78 163.12a24 24 0 0036.44 0L414 190.06c13.34-15.57 2.28-39.62-18.22-39.62h-279.6c-20.5 0-31.56 24.05-18.18 39.62z"></path>
-          </svg>
+        <div className="cursor-pointer w-full flex items-center p-2 justify-between relative">
+          <p className="min-h-full">
+            <select
+              onChange={async (e) => {
+                // console.log("projects[1].id", projects[1].id);
+                // console.log("typeof projects[1].id", typeof projects[1].id);
+                // console.log("e.target.value", e.target.value);
+                // console.log("typeof e.target.value", typeof e.target.value);
+                const selectedProject = projects.find(
+                  (p) => p.id === e.target.value,
+                );
+                if (selectedProject) {
+                  console.log("task", task);
+                  await updateUserTask(task.id, {
+                    projectId: selectedProject.id,
+                  });
+                  fetchTasks();
+                }
+              }}
+              name=""
+              id=""
+              value={task.project.id}
+            >
+              {projects.map((project) => (
+                <option key={project.id} value={project.id}>
+                  {project.name}
+                </option>
+              ))}
+            </select>
+            <svg
+              className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2"
+              stroke="currentColor"
+              fill="currentColor"
+              strokeWidth="0"
+              viewBox="0 0 512 512"
+              height="1em"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M98 190.06l139.78 163.12a24 24 0 0036.44 0L414 190.06c13.34-15.57 2.28-39.62-18.22-39.62h-279.6c-20.5 0-31.56 24.05-18.18 39.62z"></path>
+            </svg>
+          </p>
         </div>
       </div>
       {/* ステータス */}
       <div className="w-[12%] flex items-center py-2 text-xs">
         <div className="cursor-pointer w-full flex items-center p-2 justify-between">
           <p className="min-h-full">
-            {task.status === "completed"
+            {/* {task.status === "completed"
               ? "完了"
               : task.status === "archived"
                 ? "アーカイブ済み"
-                : "未完了"}
+                : "未完了"} */}
+
+            <select
+              name=""
+              id=""
+              value={task.status}
+              onChange={async (e) => {
+                await updateUserTask(task.id, { status: e.target.value });
+                fetchTasks();
+              }}
+            >
+              <option value="scheduled">未完了</option>
+              <option value="completed">完了</option>
+              <option value="archived">アーカイブ済み</option>
+            </select>
           </p>
           <svg
             stroke="currentColor"
@@ -56,10 +139,26 @@ export const TaskRow = ({ task }) => {
       {/* 期限日 */}
       <div className="w-1/10 flex items-center py-2 text-xs">
         <div className="cursor-pointer w-full flex items-center">
-          <p className="min-w-full">
+          {/* <p className="min-w-full">
             {task.deadline
               ? new Date(task.deadline).toLocaleDateString("ja-JP")
               : ""}
+          </p> */}
+          <p className="min-w-full">
+            <input
+              type="date"
+              className="min-w-full"
+              // onClick={(e) => e.target.showPicker()}
+              value={
+                task.deadline
+                  ? new Date(task.deadline).toISOString().split("T")[0]
+                  : ""
+              }
+              onChange={async (e) => {
+                await updateUserTask(task.id, { deadline: e.target.value });
+                fetchTasks();
+              }}
+            />
           </p>
         </div>
       </div>

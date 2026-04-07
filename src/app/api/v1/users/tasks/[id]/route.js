@@ -24,8 +24,9 @@ export async function GET(_, context) {
 
 export async function PATCH(request, context) {
   const {
-    params: { id },
-  } = context;
+    // params: { id },
+    id,
+  } = await context.params;
   const params = await request.json();
 
   const tasks = getTasks();

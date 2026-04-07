@@ -48,9 +48,14 @@
     /* ブラウザのデフォルト（bold等）に戻す */
   }
 
-  input {
+  /* input {
     all: revert;
   }
+
+  input[type="date"] {
+    appearance: auto;
+    -webkit-appearance: auto;
+  } */
 
   button {
     font-weight: revert;
@@ -59,6 +64,11 @@
   textarea {
     all: revert;
   }
+
+  /* select {
+    -webkit-appearance: none;
+    appearance: none;
+  } */
 
   /* canvas {
     display: block;

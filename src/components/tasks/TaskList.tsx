@@ -1,11 +1,9 @@
-import { useState } from "react";
 import { TaskParams } from "../../app/api/datastore/models/task";
 import { useTasks } from "../../contexts/TasksContext";
 import { TaskRow } from "./TaskRow";
 
 export const TaskList = () => {
-  const { tasks } = useTasks();
-  // const [isEditing, setIsEditing] = useState(false);
+  const { tasks, fetchTasks } = useTasks();
 
   return (
     <>
@@ -22,7 +20,7 @@ export const TaskList = () => {
         {/* 各タスク行 */}
         {/* TODO：受け取った20個のデータのループ */}
         {tasks?.data.map((task: TaskParams) => (
-          <TaskRow task={task} />
+          <TaskRow task={task} fetchTasks={fetchTasks} key={task.id} />
         ))}
       </div>
     </>
