@@ -5,7 +5,8 @@
       "Bash(curl -s http://localhost:3099/api/v1/users/stats)",
       "Bash(curl -s http://localhost:3099/api/v1/users/tasks)",
       "Bash(where gh:*)",
-      "Bash(git diff:*)"
+      "Bash(git diff:*)",
+      "Bash(grep -n \"Context value=\" /c/Users/Kazumasa/MYDATA/entertainment/my-apps/jiro-training-app/0600-next-context-api/src/contexts/*.tsx)"
     ]
   }
 }
