@@ -13,10 +13,10 @@ type TaskPatch = {
 type Props = {
   task: TaskParams;
   projects: ProjectParams[];
-  onChange: (patch: TaskPatch) => void | Promise<void>;
+  onUpdate: (patch: TaskPatch) => void | Promise<void>;
 };
 
-export const TaskRow = ({ task, projects, onChange }: Props) => {
+export const TaskRow = ({ task, projects, onUpdate }: Props) => {
   const [draftTitle, setDraftTitle] = useState(task.title);
   const titleInputRef = useRef<HTMLInputElement>(null);
   const [isEditingTitle, setIsEditingTitle] = useState(false);
@@ -45,7 +45,7 @@ export const TaskRow = ({ task, projects, onChange }: Props) => {
                 onBlur={async () => {
                   setIsEditingTitle(false);
                   if (draftTitle !== task.title) {
-                    await onChange({ title: draftTitle });
+                    await onUpdate({ title: draftTitle });
                   }
                 }}
               />
@@ -62,7 +62,7 @@ export const TaskRow = ({ task, projects, onChange }: Props) => {
         <div className="cursor-pointer w-full flex items-center p-2 justify-between relative">
           <span className="min-h-full">
             <select
-              onChange={(e) => onChange({ projectId: e.target.value })}
+              onChange={(e) => onUpdate({ projectId: e.target.value })}
               value={task.project.id}
             >
               {projects.map((project) => (
@@ -95,7 +95,7 @@ export const TaskRow = ({ task, projects, onChange }: Props) => {
               id=""
               value={task.status}
               onChange={(e) =>
-                onChange({ status: e.target.value as TaskStatus })
+                onUpdate({ status: e.target.value as TaskStatus })
               }
             >
               {TASK_STATUSES.map((status) => (
@@ -136,7 +136,7 @@ export const TaskRow = ({ task, projects, onChange }: Props) => {
                   : ""
               }
               onChange={(e) => {
-                onChange({ deadline: e.target.value });
+                onUpdate({ deadline: e.target.value });
               }}
             />
           </span>

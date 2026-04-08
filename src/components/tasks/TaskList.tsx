@@ -28,7 +28,7 @@ export const TaskList = () => {
             key={task.id}
             task={task}
             projects={projects}
-            onChange={async (patch) => {
+            onUpdate={async (patch) => {
               await updateUserTask(task.id, patch);
               await fetchTasks();
             }}
