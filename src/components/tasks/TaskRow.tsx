@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { STATUS_LABELS, TASK_STATUSES, TaskStatus } from "../../types";
+import { TaskStatus } from "../../types";
 import { TaskParams } from "../../app/api/datastore/models/task";
 import { ProjectParams } from "../../app/api/datastore/models/project";
+import { STATUS_LABELS, TASK_STATUSES } from "../constants";
 
 type TaskPatch = {
   title?: string;
