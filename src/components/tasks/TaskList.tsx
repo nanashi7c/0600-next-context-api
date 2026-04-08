@@ -1,9 +1,14 @@
 import { TaskParams } from "../../app/api/datastore/models/task";
+import { useProjects } from "../../contexts/ProjectsContext";
 import { useTasks } from "../../contexts/TasksContext";
+import { updateUserTask } from "../../lib/api";
 import { TaskRow } from "./TaskRow";
 
 export const TaskList = () => {
   const { tasks, fetchTasks } = useTasks();
+  const { projects } = useProjects();
+
+  if (!tasks || !projects) return null;
 
   return (
     <>
@@ -18,9 +23,16 @@ export const TaskList = () => {
       {/* タスク一覧データ */}
       <div>
         {/* 各タスク行 */}
-        {/* TODO：受け取った20個のデータのループ */}
         {tasks?.data.map((task: TaskParams) => (
-          <TaskRow task={task} fetchTasks={fetchTasks} key={task.id} />
+          <TaskRow
+            key={task.id}
+            task={task}
+            projects={projects}
+            onChange={async (patch) => {
+              await updateUserTask(task.id, patch);
+              await fetchTasks();
+            }}
+          />
         ))}
       </div>
     </>

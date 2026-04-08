@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(gh pr:*)"
+      "Bash(gh pr:*)",
+      "Bash(git fetch:*)",
+      "Bash(git -C \"c:/Users/Kazumasa/MYDATA/entertainment/my-apps/jiro-training-app/0600-next-context-api\" diff main...develop --stat)",
+      "Bash(git -C \"c:/Users/Kazumasa/MYDATA/entertainment/my-apps/jiro-training-app/0600-next-context-api\" status)",
+      "Bash(git -C \"c:/Users/Kazumasa/MYDATA/entertainment/my-apps/jiro-training-app/0600-next-context-api\" diff)"
     ]
   }
 }

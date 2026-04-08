@@ -4,9 +4,8 @@ import { TaskList } from "../../components/tasks/TaskList";
 import { useTasks } from "../../contexts/TasksContext";
 
 export default function TasksPage() {
-  const { tasks, page, setPage, limit, setLimit } = useTasks();
-  const totalCount = tasks?.pageInfo.totalCount ?? 0;
-  const totalPage = Math.ceil(totalCount / limit);
+  const { tasks, page, setPage, limit, setLimit, totalPage } = useTasks();
+
 
   return (
     <div className="w-full p-8 h-full overflow-scroll">

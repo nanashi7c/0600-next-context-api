@@ -1,24 +1,31 @@
 import { useEffect, useRef, useState } from "react";
-import { useProjects } from "../../contexts/ProjectsContext";
-import { updateUserTask } from "../../lib/api";
+import { STATUS_LABELS, TASK_STATUSES, TaskStatus } from "../../types";
+import { TaskParams } from "../../app/api/datastore/models/task";
+import { ProjectParams } from "../../app/api/datastore/models/project";
 
-export const TaskRow = ({ task, fetchTasks }) => {
-  const [isEditing, setIsEditing] = useState(false);
+type TaskPatch = {
+  title?: string;
+  projectId?: string;
+  status?: TaskStatus;
+  deadline?: string;
+};
+
+type Props = {
+  task: TaskParams;
+  projects: ProjectParams[];
+  onChange: (patch: TaskPatch) => void | Promise<void>;
+};
+
+export const TaskRow = ({ task, projects, onChange }: Props) => {
   const [draftTitle, setDraftTitle] = useState(task.title);
-  const titleInputRef = useRef(null);
+  const titleInputRef = useRef<HTMLInputElement>(null);
   const [isEditingTitle, setIsEditingTitle] = useState(false);
-  const [isEditingProject, setIsEditingProject] = useState(false);
-  const [isEditingStatus, setIsEditingStatus] = useState(false);
-  const [isEditingDeadline, setIsEditingDeadline] = useState(false);
-  const { projects } = useProjects();
 
   useEffect(() => {
     if (isEditingTitle && titleInputRef.current) {
       titleInputRef.current.focus();
     }
   }, [isEditingTitle]);
-
-  const handleEditTitle = (id, value) => {};
 
   return (
     <div className="flex py-2 transition-all duration-500">
@@ -35,15 +42,12 @@ export const TaskRow = ({ task, fetchTasks }) => {
                 onChange={(e) => {
                   setDraftTitle(e.target.value);
                 }}
-                onBlur={async (e) => {
+                onBlur={async () => {
                   setIsEditingTitle(false);
-                  console.log("draftTitle", draftTitle);
-                  if (draftTitle != task.title) {
-                    await updateUserTask(task.id, { title: draftTitle });
-                    fetchTasks();
+                  if (draftTitle !== task.title) {
+                    await onChange({ title: draftTitle });
                   }
                 }}
-                onClick={(e) => e.stopPropagation()}
               />
             </div>
           ) : (
@@ -56,26 +60,9 @@ export const TaskRow = ({ task, fetchTasks }) => {
       {/* プロジェクト */}
       <div className="w-[14%] flex items-center py-2 text-xs">
         <div className="cursor-pointer w-full flex items-center p-2 justify-between relative">
-          <p className="min-h-full">
+          <span className="min-h-full">
             <select
-              onChange={async (e) => {
-                // console.log("projects[1].id", projects[1].id);
-                // console.log("typeof projects[1].id", typeof projects[1].id);
-                // console.log("e.target.value", e.target.value);
-                // console.log("typeof e.target.value", typeof e.target.value);
-                const selectedProject = projects.find(
-                  (p) => p.id === e.target.value,
-                );
-                if (selectedProject) {
-                  console.log("task", task);
-                  await updateUserTask(task.id, {
-                    projectId: selectedProject.id,
-                  });
-                  fetchTasks();
-                }
-              }}
-              name=""
-              id=""
+              onChange={(e) => onChange({ projectId: e.target.value })}
               value={task.project.id}
             >
               {projects.map((project) => (
@@ -96,33 +83,28 @@ export const TaskRow = ({ task, fetchTasks }) => {
             >
               <path d="M98 190.06l139.78 163.12a24 24 0 0036.44 0L414 190.06c13.34-15.57 2.28-39.62-18.22-39.62h-279.6c-20.5 0-31.56 24.05-18.18 39.62z"></path>
             </svg>
-          </p>
+          </span>
         </div>
       </div>
       {/* ステータス */}
       <div className="w-[12%] flex items-center py-2 text-xs">
         <div className="cursor-pointer w-full flex items-center p-2 justify-between">
-          <p className="min-h-full">
-            {/* {task.status === "completed"
-              ? "完了"
-              : task.status === "archived"
-                ? "アーカイブ済み"
-                : "未完了"} */}
-
+          <span className="min-h-full">
             <select
               name=""
               id=""
               value={task.status}
-              onChange={async (e) => {
-                await updateUserTask(task.id, { status: e.target.value });
-                fetchTasks();
-              }}
+              onChange={(e) =>
+                onChange({ status: e.target.value as TaskStatus })
+              }
             >
-              <option value="scheduled">未完了</option>
-              <option value="completed">完了</option>
-              <option value="archived">アーカイブ済み</option>
+              {TASK_STATUSES.map((status) => (
+                <option key={status} value={status}>
+                  {STATUS_LABELS[status]}
+                </option>
+              ))}
             </select>
-          </p>
+          </span>
           <svg
             stroke="currentColor"
             fill="currentColor"
@@ -144,22 +126,20 @@ export const TaskRow = ({ task, fetchTasks }) => {
               ? new Date(task.deadline).toLocaleDateString("ja-JP")
               : ""}
           </p> */}
-          <p className="min-w-full">
+          <span className="min-w-full">
             <input
               type="date"
               className="min-w-full"
-              // onClick={(e) => e.target.showPicker()}
               value={
                 task.deadline
                   ? new Date(task.deadline).toISOString().split("T")[0]
                   : ""
               }
-              onChange={async (e) => {
-                await updateUserTask(task.id, { deadline: e.target.value });
-                fetchTasks();
+              onChange={(e) => {
+                onChange({ deadline: e.target.value });
               }}
             />
-          </p>
+          </span>
         </div>
       </div>
       {/* 編集画面へのリンク */}

@@ -18,3 +18,13 @@ export interface TasksResponse {
 export type StatsResponse = StatsParams[];
 
 export type ProjectsResponse = ProjectParams[];
+
+export const TASK_STATUSES = ["scheduled", "completed", "archived"] as const;
+
+export type TaskStatus = (typeof TASK_STATUSES)[number];
+
+export const STATUS_LABELS: Record<TaskStatus, string> = {
+  scheduled: "未完了",
+  completed: "完了",
+  archived: "アーカイブ済み",
+};
