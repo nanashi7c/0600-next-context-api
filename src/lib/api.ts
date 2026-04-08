@@ -1,12 +1,8 @@
 // API呼び出し関数
 
 import axios from "axios";
-import {
-  ProjectsResponse,
-  StatsResponse,
-  TASK_STATUSES,
-  TasksResponse,
-} from "../types";
+import { ProjectsResponse, StatsResponse, TasksResponse } from "../types";
+import { TASK_STATUSES } from "../components/constants";
 
 export async function getUserStats(): Promise<StatsResponse> {
   try {
