@@ -3,6 +3,7 @@ import { TaskStatus } from "../../types";
 import { TaskParams } from "../../app/api/datastore/models/task";
 import { ProjectParams } from "../../app/api/datastore/models/project";
 import { STATUS_LABELS, TASK_STATUSES } from "../constants";
+import Link from "next/link";
 
 type TaskPatch = {
   title?: string;
@@ -145,7 +146,7 @@ export const TaskRow = ({ task, projects, onUpdate }: Props) => {
       </div>
       {/* 編集画面へのリンク */}
       <div className="w-[8%] flex items-center py-2 text-xs">
-        <a href="">
+        <Link href={`/tasks/${task.id}`}>
           <div className="cursor-pointer w-full flex items-center shadow-[2px_2px_4px_1px_#22222210]">
             <div>
               <svg
@@ -168,7 +169,7 @@ export const TaskRow = ({ task, projects, onUpdate }: Props) => {
               </svg>
             </div>
           </div>
-        </a>
+        </Link>
       </div>
     </div>
   );

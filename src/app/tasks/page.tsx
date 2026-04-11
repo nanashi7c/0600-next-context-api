@@ -6,7 +6,6 @@ import { useTasks } from "../../contexts/TasksContext";
 export default function TasksPage() {
   const { tasks, page, setPage, limit, setLimit, totalPage } = useTasks();
 
-
   return (
     <div className="w-full p-8 h-full overflow-scroll">
       <div className="flex justify-between">
@@ -79,13 +78,6 @@ export default function TasksPage() {
                 {p}
               </li>
             ))}
-            {/* <li className="text-(--primary-color) font-bold flex items-center cursor-pointer p-2 m-2">
-              1
-            </li>
-            <li className=" flex items-center cursor-pointer p-2 m-2">2</li>
-            <li className=" flex items-center cursor-pointer p-2 m-2">3</li>
-            <li className=" flex items-center cursor-pointer p-2 m-2">4</li>
-            <li className=" flex items-center cursor-pointer p-2 m-2">5</li> */}
             <li
               onClick={() => setPage(Math.min(totalPage, page + 1))}
               className="flex items-center justify-cneter cursor-pointer p-2 m-2"
