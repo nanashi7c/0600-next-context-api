@@ -1,6 +1,22 @@
+"use client";
+
 // ナビ・プロフェクト一覧
 
+import { usePathname } from "next/navigation";
+import { useProjects } from "../../contexts/ProjectsContext";
+import Link from "next/link";
+import dayjs from "dayjs";
+
 export const Sidebar = () => {
+  const pathname = usePathname();
+  const { projects } = useProjects();
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
+
+  const linkClass = (href: string) =>
+    `${isActive(href) ? "bg-(--hover-color) text-(--font-color-dark) font-bold" : "text-(--font-color-dark) font-medium"} cursor-pointer block pt-4 pr-4 pb-4 pl-8 text-sm whitespace-nowrap hover:bg-[#8fe3c7]/25`;
+
   return (
     // 右側に余白
     <div className="w-73 min-w-73">
@@ -36,80 +52,64 @@ export const Sidebar = () => {
           <ul>
             <li>
               {/* 文字周りの余白 */}
-              <div className="bg-(--hover-color) text-(--font-color-dark) font-bold cursor-pointer block pt-4 pr-4 pb-4 pl-8 text-sm whitespace-nowrap hover:bg-[#8fe3c7]/25">
+              <Link
+                href="/"
+                className="bg-(--hover-color) text-(--font-color-dark) font-bold cursor-pointer block pt-4 pr-4 pb-4 pl-8 text-sm whitespace-nowrap hover:bg-[#8fe3c7]/25"
+              >
                 {/* 「ダッシュボード」の文字列 */}
                 <div className="tracking-[0.8px]">ダッシュボード</div>
-              </div>
+              </Link>
             </li>
             <li>
               {/* 文字周りの余白 */}
-              <div className="text-(--font-color-dark) font-medium cursor-pointer block pt-4 pr-4 pb-4 pl-8 text-sm whitespace-nowrap hover:bg-[#8fe3c7]/25">
+              <Link
+                href="/tasks"
+                className="text-(--font-color-dark) font-medium cursor-pointer block pt-4 pr-4 pb-4 pl-8 text-sm whitespace-nowrap hover:bg-[#8fe3c7]/25"
+              >
                 {/* 「タスク」の文字列 */}
                 <div className="tracking-[0.8px]">タスク</div>
-              </div>
+              </Link>
             </li>
             <li>
               {/* 文字周りの余白 */}
-              <div className="text-(--font-color-dark) font-medium cursor-pointer block pt-4 pr-4 pb-4 pl-8 text-sm whitespace-nowrap hover:bg-[#8fe3c7]/25">
+              <Link
+                href="/projects"
+                className="text-(--font-color-dark) font-medium cursor-pointer block pt-4 pr-4 pb-4 pl-8 text-sm whitespace-nowrap hover:bg-[#8fe3c7]/25"
+              >
                 {/* 「プロジェクト」の文字列 */}
                 <div>プロジェクト</div>
-              </div>
+              </Link>
             </li>
             {/* プロジェクト一覧のリスト */}
             {/* 左と上下の余白 */}
             <ul className="mt-4 mb-4 ml-8 text-(--font-color-dark) ">
-              {/* 文字周りの余白 */}
-              <li className="cursor-pointer block pt-4 pr-4 pb-4 pl-8 whitespace-nowrap text-sm hover:bg-[#8fe3c7]/25">
-                {/* プロジェクト名・期限の横並べ */}
-                <div className="flex justify-between items-end">
-                  {/* ビュレット・プロジェクト名 */}
-                  <div>
-                    {/* ビュレット */}
-                    <span className="bg-[rgba(0,0,140,0.6)] inline-block h-2 w-2 rounded mr-2"></span>
-                    {/* プロジェクト名 */}
-                    プロジェクト1
-                  </div>
-                  {/* 期限日 */}
-                  <span className="inline-block text-[10px] ml-8">
-                    2026/03/28
-                  </span>
-                </div>
-              </li>
-              {/* 以下繰り返し */}
-              {/* 文字周りの余白 */}
-              <li className="cursor-pointer block pt-4 pr-4 pb-4 pl-8 whitespace-nowrap text-sm hover:bg-[#8fe3c7]/25">
-                {/* プロジェクト名・期限の横並べ */}
-                <div className="flex justify-between items-end">
-                  {/* ビュレット・プロジェクト名 */}
-                  <div>
-                    {/* ビュレット */}
-                    <span className="bg-[rgba(0,25,255,0.6)] inline-block h-2 w-2 rounded mr-2"></span>
-                    {/* プロジェクト名 */}
-                    プロジェクト２
-                  </div>
-                  {/* 期限日 */}
-                  <span className="inline-block text-[10px] ml-8">
-                    2026/03/28
-                  </span>
-                </div>
-              </li>
-              {/* 文字周りの余白 */}
-              <li className="cursor-pointer block pt-4 pr-4 pb-4 pl-8 whitespace-nowrap text-sm hover:bg-[#8fe3c7]/25">
-                {/* プロジェクト名・期限の横並べ */}
-                <div className="flex justify-between items-end">
-                  {/* ビュレット・プロジェクト名 */}
-                  <div>
-                    {/* ビュレット */}
-                    <span className="bg-[rgba(0,165,255,0.6)] inline-block h-2 w-2 rounded mr-2"></span>
-                    {/* プロジェクト名 */}
-                    プロジェクト３
-                  </div>
-                  {/* 期限日 */}
-                  <span className="inline-block text-[10px] ml-8">
-                    2026/03/28
-                  </span>
-                </div>
-              </li>
+              {projects?.data.map((project) => (
+                <li
+                  key={project.slug}
+                  className="cursor-pointer block pt-4 pr-4 pb-4 pl-8 whitespace-nowrap text-sm hover:bg-[#8fe3c7]/25"
+                >
+                  {/* プロジェクト名・期限の横並べ */}
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    className="flex justify-between items-end"
+                  >
+                    {/* ビュレット・プロジェクト名 */}
+                    <div>
+                      {/* ビュレット */}
+                      <span
+                        className="inline-block h-2 w-2 rounded mr-2"
+                        style={{ backgroundColor: project.color }}
+                      ></span>
+                      {/* プロジェクト名 */}
+                      {project.name}
+                    </div>
+                    {/* 期限日 */}
+                    <span className="inline-block text-[10px] ml-8">
+                      {dayjs(project.deadline).format("YYYY/MM/DD")}
+                    </span>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </ul>
         </div>
