@@ -18,6 +18,15 @@ export interface TasksResponse {
 
 export type StatsResponse = StatsParams[];
 
-export type ProjectsResponse = ProjectParams[];
+export interface ProjectsResponse {
+  data: ProjectParams[];
+  pageInfo: {
+    totalCount: number;
+    limit: number;
+    page: number;
+    hasNext: boolean;
+    hasPrevious: boolean;
+  };
+}
 
 export type TaskStatus = (typeof TASK_STATUSES)[number];
