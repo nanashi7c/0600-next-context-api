@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { ProjectsResponse, StatsResponse, TasksResponse } from "../types";
-import { TASK_STATUSES } from "../components/constants";
+import { TASK_STATUSES } from "../constants";
 import { ProjectParams } from "../app/api/datastore/models/project";
 
 export async function getUserStats(): Promise<StatsResponse> {

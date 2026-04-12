@@ -3,8 +3,7 @@
 import { ProjectParams } from "../app/api/datastore/models/project";
 import { StatsParams } from "../app/api/datastore/models/stats";
 import { TaskParams } from "../app/api/datastore/models/task";
-import { TASK_STATUSES } from "../components/constants";
-
+import { TASK_STATUSES } from "../constants";
 export interface TasksResponse {
   data: TaskParams[];
   pageInfo: {

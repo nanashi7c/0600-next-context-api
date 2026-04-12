@@ -1,4 +1,4 @@
-import { TaskStatus } from "../../types";
+import { TaskStatus } from "../types";
 
 export const TASK_STATUSES = ["scheduled", "completed", "archived"] as const;
 
