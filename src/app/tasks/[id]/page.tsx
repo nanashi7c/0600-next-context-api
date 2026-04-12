@@ -1,4 +1,5 @@
 import React from "react";
+import { IoArrowBack, IoCaretDown, IoTrashOutline } from "react-icons/io5";
 
 export default function TasksDetailPage() {
   return (
@@ -14,37 +15,7 @@ export default function TasksDetailPage() {
               </h2>
               <div className="cursor-pointer">
                 <div className="flex justify-center items-center h-full">
-                  <svg
-                    stroke="currentColor"
-                    fill="currentColor"
-                    strokeWidth="0"
-                    viewBox="0 0 512 512"
-                    height="1em"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="32"
-                      d="M112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320"
-                    ></path>
-                    <path
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeMiterlimit="10"
-                      strokeWidth="32"
-                      d="M80 112h352"
-                    ></path>
-                    <path
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="32"
-                      d="M192 112V72h0a23.93 23.93 0 0124-24h80a23.93 23.93 0 0124 24h0v40m-64 64v224m-72-224l8 224m136-224l-8 224"
-                    ></path>
-                  </svg>
+                  <IoTrashOutline />
                 </div>
               </div>
             </div>
@@ -64,17 +35,7 @@ export default function TasksDetailPage() {
                 <div className="flex justify-center items-center cursor-pointer flex-col">
                   <div className="flex items-center rounded p-2 justify-between w-full border-0 shadow-[0_0_4px_1px_#22222210]">
                     <p className="text-xs">プログラミング</p>
-                    <svg
-                      stroke="currentColor"
-                      fill="currentColor"
-                      strokeWidth="0"
-                      viewBox="0 0 512 512"
-                      height="1em"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M98 190.06l139.78 163.12a24 24 0 0036.44 0L414 190.06c13.34-15.57 2.28-39.62-18.22-39.62h-279.6c-20.5 0-31.56 24.05-18.18 39.62z"></path>
-                    </svg>
+                    <IoCaretDown />
                   </div>
                 </div>
               </div>
@@ -95,17 +56,7 @@ export default function TasksDetailPage() {
                 <div className="flex justify-center items-center cursor-pointer">
                   <div className="flex items-center rounded p-2 justify-between w-full border-0 shadow-[0_0_4px_1px_#22222210]">
                     <p className="text-xs">未完了</p>
-                    <svg
-                      stroke="currentColor"
-                      fill="currentColor"
-                      strokeWidth="0"
-                      viewBox="0 0 512 512"
-                      height="1em"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M98 190.06l139.78 163.12a24 24 0 0036.44 0L414 190.06c13.34-15.57 2.28-39.62-18.22-39.62h-279.6c-20.5 0-31.56 24.05-18.18 39.62z"></path>
-                    </svg>
+                    <IoCaretDown />
                   </div>
                 </div>
               </div>
@@ -132,23 +83,7 @@ export default function TasksDetailPage() {
             </div>
             <div className="cursor-pointer pt-8 pb-4">
               <p className="text-(--primary-color) flex items-center">
-                <svg
-                  stroke="currentColor"
-                  fill="currentColor"
-                  strokeWidth="0"
-                  viewBox="0 0 512 512"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="48"
-                    d="M244 400L100 256l144-144M120 256h292"
-                  ></path>
-                </svg>
+                <IoArrowBack />
                 戻る
               </p>
             </div>

@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useProjects } from "../../contexts/ProjectsContext";
 import Link from "next/link";
 import dayjs from "dayjs";
+import { IoChevronBack } from "react-icons/io5";
 
 export const Sidebar = () => {
   const pathname = usePathname();
@@ -27,23 +28,7 @@ export const Sidebar = () => {
           {/* サイドバーのトグル */}
           <span className="cursor-pointer transition-transform duration-200">
             {/* トグルのアイコン */}
-            <svg
-              stroke="currentColor"
-              fill="currentColor"
-              strokeWidth="0"
-              viewBox="0 0 512 512"
-              height="1em"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="48"
-                d="M328 112L184 256l144 144"
-              ></path>
-            </svg>
+            <IoChevronBack />
           </span>
         </div>
         {/* ダッシュボード本体 */}

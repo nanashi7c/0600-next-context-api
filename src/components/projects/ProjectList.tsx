@@ -1,3 +1,4 @@
+import { IoCalendarClear, IoDocument, IoGitCommit } from "react-icons/io5";
 import { useProjects } from "../../contexts/ProjectsContext";
 
 export const ProjectList = () => {
@@ -23,20 +24,11 @@ export const ProjectList = () => {
               {/* カレンダーアイコンと期限日 */}
               <span className="flex items-center">
                 {/* カレンダーアイコン */}
-                <svg
-                  stroke="currentColor"
-                  fill="currentColor"
-                  strokeWidth="0"
-                  viewBox="0 0 512 512"
-                  color="rgba(0, 0, 140, 0.6)"
-                  height="10px"
-                  width="10px"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="inline-block mr-2 "
+                <IoCalendarClear
+                  size={10}
                   style={{ color: project.color }}
-                >
-                  <path d="M480 128a64 64 0 00-64-64h-16V48.45c0-8.61-6.62-16-15.23-16.43A16 16 0 00368 48v16H144V48.45c0-8.61-6.62-16-15.23-16.43A16 16 0 00112 48v16H96a64 64 0 00-64 64v12a4 4 0 004 4h440a4 4 0 004-4zM32 416a64 64 0 0064 64h320a64 64 0 0064-64V180a4 4 0 00-4-4H36a4 4 0 00-4 4z"></path>
-                </svg>
+                  className="inline-block mr-2 "
+                />
                 {/* 期限日 */}
                 <p className="text-[10px] font-bold">2026/03/30</p>
               </span>
@@ -62,19 +54,7 @@ export const ProjectList = () => {
                 <p className="cursor-pointer flex items-center">
                   {/* マイルストーンアイコン */}
                   <span className="mr-1 ml-2">
-                    <svg
-                      stroke="currentColor"
-                      fill="currentColor"
-                      strokeWidth="0"
-                      viewBox="0 0 512 512"
-                      color="rgba(0, 0, 140, 0.6)"
-                      height="12px"
-                      width="12px"
-                      xmlns="http://www.w3.org/2000/svg"
-                      style={{ color: project.color }}
-                    >
-                      <path d="M448 224h-68a128 128 0 00-247.9 0H64a32 32 0 000 64h68.05A128 128 0 00380 288h68a32 32 0 000-64zm-192 96a64 64 0 1164-64 64.07 64.07 0 01-64 64z"></path>
-                    </svg>
+                    <IoGitCommit size={12} style={{ color: project.color }} />
                   </span>
                   <span className="text-xs text-(--font-color-weak)">
                     {project.stats.kinds.milestone}
@@ -83,20 +63,7 @@ export const ProjectList = () => {
                 {/* タスク */}
                 <p className="cursor-pointer flex items-center">
                   <span className="mr-1 ml-2">
-                    <svg
-                      stroke="currentColor"
-                      fill="currentColor"
-                      strokeWidth="0"
-                      viewBox="0 0 512 512"
-                      color="rgba(0, 0, 140, 0.6)"
-                      height="12px"
-                      width="12px"
-                      xmlns="http://www.w3.org/2000/svg"
-                      style={{ color: project.color }}
-                    >
-                      <path d="M428 224H288a48 48 0 01-48-48V36a4 4 0 00-4-4h-92a64 64 0 00-64 64v320a64 64 0 0064 64h224a64 64 0 0064-64V228a4 4 0 00-4-4z"></path>
-                      <path d="M419.22 188.59L275.41 44.78a2 2 0 00-3.41 1.41V176a16 16 0 0016 16h129.81a2 2 0 001.41-3.41z"></path>
-                    </svg>
+                    <IoDocument size={12} style={{ color: project.color }} />
                   </span>
                   <span className="text-xs text-(--font-color-weak)">
                     {project.stats.kinds.task}
