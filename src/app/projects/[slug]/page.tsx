@@ -18,7 +18,11 @@ export default function ProjectPage({
   const [project, setProject] = useState(null);
 
   useEffect(() => {
-    getUserProject(slug).then((data) => setProject(data ?? null));
+    const fetchProject = async () => {
+      const data = await getUserProject(slug);
+      setProject(data ?? null);
+    };
+    fetchProject();
   }, [slug]);
 
   if (!project) return <div>Loading...</div>;
