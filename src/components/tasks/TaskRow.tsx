@@ -4,6 +4,7 @@ import { TaskParams } from "../../app/api/datastore/models/task";
 import { ProjectParams } from "../../app/api/datastore/models/project";
 import { TASK_STATUSES, STATUS_LABELS } from "../../constants";
 import Link from "next/link";
+import { Select } from "../select";
 import { IoArrowForward, IoCaretDown } from "react-icons/io5";
 
 type TaskPatch = {
@@ -64,7 +65,15 @@ export const TaskRow = ({ task, projects, onUpdate }: Props) => {
       <div className="w-[14%] flex items-center py-2 text-xs">
         <div className="cursor-pointer w-full flex items-center p-2 justify-between relative">
           <span className="min-h-full">
-            <select
+            <Select
+              data={projects.map((project) => ({
+                label: project.name,
+                value: project.id,
+              }))}
+              value={task.project.id}
+              onChange={(value) => onUpdate({ projectId: value })}
+            />
+            {/* <select
               onChange={(e) => onUpdate({ projectId: e.target.value })}
               value={task.project.id}
             >
@@ -73,7 +82,7 @@ export const TaskRow = ({ task, projects, onUpdate }: Props) => {
                   {project.name}
                 </option>
               ))}
-            </select>
+            </select> */}
             <IoCaretDown className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2" />
           </span>
         </div>
