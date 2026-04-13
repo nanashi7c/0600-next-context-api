@@ -4,11 +4,8 @@ import { use, useEffect, useState } from "react";
 import { getUserProject } from "../../../lib/api";
 import {
   IoArchiveOutline,
-  IoCalendarClear,
   IoCalendarOutline,
   IoCheckmark,
-  IoDocument,
-  IoGitCommit,
 } from "react-icons/io5";
 import dayjs from "dayjs";
 
@@ -23,9 +20,6 @@ export default function ProjectPage({
   useEffect(() => {
     getUserProject(slug).then((data) => setProject(data ?? null));
   }, [slug]);
-
-  console.log("project", project);
-  console.log("slug", slug);
 
   if (!project) return <div>Loading...</div>;
 
@@ -53,7 +47,9 @@ export default function ProjectPage({
               </label>
               <div>
                 <p className="flex tracking-[0.1rem]">
-                  <span className="inline-block mr-2">あと{}日</span>
+                  <span className="inline-block mr-2">
+                    あと{dayjs(project.deadline).diff(dayjs(), "day")}日
+                  </span>
                   <span className="text-xs relative top-0.5">
                     ({dayjs(project.deadline).format("YYYY/MM/DD")})
                   </span>
@@ -61,7 +57,7 @@ export default function ProjectPage({
                 {/* プロジェクトの内容 */}
                 <div className="px-0">
                   {/* 文字列周りの余白 */}
-                  <div className="items-center mr-4 mb-2 text-xl text-(--font-color-dar<aaaak) font-bold">
+                  <div className="items-center mr-4 mb-2 text-xl text-(--font-color-dark) font-bold">
                     {/* プロジェクト1の目的 */}
                     <p className="text-[28px] font-bold tracking-[0.2rem]">
                       {project.goal}
@@ -97,6 +93,7 @@ export default function ProjectPage({
                   className="rounded py-2 px-3 w-full font-light text-xs text-(--font-color-dark) border-0 shadow-[0_0_4px_1px_#22222210]"
                   type="text"
                   value={slug}
+                  readOnly
                 />
               </div>
             </div>
