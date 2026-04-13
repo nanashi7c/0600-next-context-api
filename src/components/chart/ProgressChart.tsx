@@ -8,7 +8,6 @@ interface ProgressChartProps {
 }
 
 export const ProgressChart = ({ datasets }: ProgressChartProps) => {
-  // console.log("datasets", datasets);
   Chart.register(...registerables);
 
   const canvasRef = useRef<HTMLCanvasElement>(null); // CanvasElementへのポインタ

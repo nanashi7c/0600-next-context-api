@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { STATUS_LABELS, TASK_STATUSES, TaskStatus } from "../../types";
+import { TaskStatus } from "../../types";
 import { TaskParams } from "../../app/api/datastore/models/task";
 import { ProjectParams } from "../../app/api/datastore/models/project";
+import { TASK_STATUSES, STATUS_LABELS } from "../../constants";
+import Link from "next/link";
+import { IoArrowForward, IoCaretDown } from "react-icons/io5";
 
 type TaskPatch = {
   title?: string;
@@ -71,18 +74,7 @@ export const TaskRow = ({ task, projects, onUpdate }: Props) => {
                 </option>
               ))}
             </select>
-            <svg
-              className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2"
-              stroke="currentColor"
-              fill="currentColor"
-              strokeWidth="0"
-              viewBox="0 0 512 512"
-              height="1em"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M98 190.06l139.78 163.12a24 24 0 0036.44 0L414 190.06c13.34-15.57 2.28-39.62-18.22-39.62h-279.6c-20.5 0-31.56 24.05-18.18 39.62z"></path>
-            </svg>
+            <IoCaretDown className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2" />
           </span>
         </div>
       </div>
@@ -105,17 +97,7 @@ export const TaskRow = ({ task, projects, onUpdate }: Props) => {
               ))}
             </select>
           </span>
-          <svg
-            stroke="currentColor"
-            fill="currentColor"
-            strokeWidth="0"
-            viewBox="0 0 512 512"
-            height="1em"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M98 190.06l139.78 163.12a24 24 0 0036.44 0L414 190.06c13.34-15.57 2.28-39.62-18.22-39.62h-279.6c-20.5 0-31.56 24.05-18.18 39.62z"></path>
-          </svg>
+          <IoCaretDown />
         </div>
       </div>
       {/* 期限日 */}
@@ -144,30 +126,13 @@ export const TaskRow = ({ task, projects, onUpdate }: Props) => {
       </div>
       {/* 編集画面へのリンク */}
       <div className="w-[8%] flex items-center py-2 text-xs">
-        <a href="">
+        <Link href={`/tasks/${task.id}`}>
           <div className="cursor-pointer w-full flex items-center shadow-[2px_2px_4px_1px_#22222210]">
             <div>
-              <svg
-                stroke="currentColor"
-                fill="currentColor"
-                strokeWidth="0"
-                viewBox="0 0 512 512"
-                className="table_detailIcon__v9v_Q"
-                height="1em"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="48"
-                  d="M268 112l144 144-144 144m124-144H100"
-                ></path>
-              </svg>
+              <IoArrowForward />
             </div>
           </div>
-        </a>
+        </Link>
       </div>
     </div>
   );

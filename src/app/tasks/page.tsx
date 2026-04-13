@@ -1,11 +1,11 @@
 "use client";
 
+import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import { TaskList } from "../../components/tasks/TaskList";
 import { useTasks } from "../../contexts/TasksContext";
 
 export default function TasksPage() {
   const { tasks, page, setPage, limit, setLimit, totalPage } = useTasks();
-
 
   return (
     <div className="w-full p-8 h-full overflow-scroll">
@@ -51,23 +51,7 @@ export default function TasksPage() {
               className="flex items-center justify-cneter cursor-pointer p-2 m-2"
             >
               <div className="flex justify-center items-center h-full">
-                <svg
-                  stroke="currentColor"
-                  fill="currentColor"
-                  strokeWidth="0"
-                  viewBox="0 0 512 512"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="48"
-                    d="M328 112L184 256l144 144"
-                  ></path>
-                </svg>
+                <IoChevronBack />
               </div>
             </li>
             {Array.from({ length: totalPage }, (_, i) => i + 1).map((p) => (
@@ -79,35 +63,12 @@ export default function TasksPage() {
                 {p}
               </li>
             ))}
-            {/* <li className="text-(--primary-color) font-bold flex items-center cursor-pointer p-2 m-2">
-              1
-            </li>
-            <li className=" flex items-center cursor-pointer p-2 m-2">2</li>
-            <li className=" flex items-center cursor-pointer p-2 m-2">3</li>
-            <li className=" flex items-center cursor-pointer p-2 m-2">4</li>
-            <li className=" flex items-center cursor-pointer p-2 m-2">5</li> */}
             <li
               onClick={() => setPage(Math.min(totalPage, page + 1))}
               className="flex items-center justify-cneter cursor-pointer p-2 m-2"
             >
               <div className="flex justify-center items-center h-full">
-                <svg
-                  stroke="currentColor"
-                  fill="currentColor"
-                  strokeWidth="0"
-                  viewBox="0 0 512 512"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="48"
-                    d="M184 112l144 144-144 144"
-                  ></path>
-                </svg>
+                <IoChevronForward />
               </div>
             </li>
           </ul>
