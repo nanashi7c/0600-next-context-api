@@ -1,5 +1,6 @@
 import { IoCalendarClear, IoDocument, IoGitCommit } from "react-icons/io5";
 import { useProjects } from "../../contexts/ProjectsContext";
+import dayjs from "dayjs";
 
 export const ProjectList = () => {
   const { projects } = useProjects();
@@ -30,7 +31,9 @@ export const ProjectList = () => {
                   className="inline-block mr-2 "
                 />
                 {/* 期限日 */}
-                <p className="text-[10px] font-bold">2026/03/30</p>
+                <p className="text-[10px] font-bold">
+                  {dayjs(project.deadline).format("YYYY/MM/DD")}
+                </p>
               </span>
             </div>
             {/* プロジェクトの内容 */}
