@@ -4,6 +4,7 @@ import axios from "axios";
 import { ProjectsResponse, StatsResponse, TasksResponse } from "../types";
 import { TASK_STATUSES } from "../constants";
 import { ProjectParams } from "../app/api/datastore/models/project";
+import { TaskParams } from "../app/api/datastore/models/task";
 
 export async function getUserStats(): Promise<StatsResponse> {
   try {
@@ -54,6 +55,15 @@ export async function getUserProject(
 ): Promise<ProjectParams | undefined> {
   try {
     const response = await axios.get(`/api/v1/users/projects/${slug}`);
+    return response.data.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function getUserTask(id: string): Promise<TaskParams | undefined> {
+  try {
+    const response = await axios.get(`/api/v1/users/tasks/${id}`);
     return response.data.data;
   } catch (error) {
     console.error(error);

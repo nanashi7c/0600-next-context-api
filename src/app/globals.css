@@ -2,6 +2,7 @@
 
 :root {
   --primary-color: #42b883;
+  --primary-color-darker: #0d864f;
   --secondary-color: #1c3041;
   --font-color-light: #fff;
   --hover-color: #f0f0f0;
@@ -49,6 +50,10 @@
     /* ブラウザのデフォルト（bold等）に戻す */
   }
 
+  input {
+    font-family: revert;
+  }
+
   /* input {
     all: revert;
   }
@@ -64,6 +69,26 @@
 
   textarea {
     all: revert;
+  }
+
+  select {
+    padding: 4px 8px;
+  }
+
+  select {
+    outline: none;
+    box-shadow: none;
+  }
+
+  select option {
+    padding: 12px 16px;
+    background-color: #fff;
+    color: var(--font-color-dark);
+  }
+
+  select option:hover {
+    background: var(--primary-color) linear-gradient(0deg, var(--primary-color), var(--primary-color));
+    color: var(--font-color-light);
   }
 
   /* select {
