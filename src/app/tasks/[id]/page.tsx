@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, use, useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { IoArrowBack, IoCaretDown, IoTrashOutline } from "react-icons/io5";
 
 import {
@@ -12,7 +12,7 @@ import {
 import { TaskStatus } from "../../../types";
 import { useRouter } from "next/navigation";
 import { STATUS_LABELS, TASK_STATUSES } from "../../../constants";
-import { Task, TaskParams } from "../../api/datastore/models/task";
+import { TaskParams } from "../../api/datastore/models/task";
 import { ProjectParams } from "../../api/datastore/models/project";
 
 export default function TasksDetailPage({
@@ -73,19 +73,11 @@ export default function TasksDetailPage({
   const handleReset = () => {
     if (!task) return;
     applyTaskForm(task);
-    // setProjectId(task.project?.id ?? "");
-    // setDeadline(
-    //   task.deadline ? new Date(task.deadline).toISOString().split("T")[0] : "",
-    // );
-    // setStatus(task.status as TaskStatus);
-    // setDescription(task.description ?? "");
   };
 
   const handleDelete = async () => {
     if (!task) return;
     if (!window.confirm("このタスクを削除しますか？")) return;
-    // await fetch(`/api/v1/users/tasks/${id}`, { method: "DELETE" });
-    // router.push("/");
     const ok = await deleteUserTask(id);
     if (ok) router.back();
   };
@@ -96,12 +88,6 @@ export default function TasksDetailPage({
     <div className="w-full h-full p-8 overflow-scroll">
       <div className="p-16">
         <div className="m-auto w-160">
-          {/* <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleDelete();
-            }}
-          ></form> */}
           <div className="mb-12">
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-midium">
@@ -109,10 +95,6 @@ export default function TasksDetailPage({
                   <p className="min-w-full">{task.title}</p>
                 </div>
               </h2>
-              {/* <div className="cursor-pointer">
-                <div className="flex justify-center items-center h-full">
-                  <IoTrashOutline onClick={handleDelete} />
-                </div> */}
               <div
                 className="cursor-pointer flex justify-center items-center h-full"
                 onClick={handleDelete}
@@ -163,7 +145,6 @@ export default function TasksDetailPage({
                           </option>
                         ))}
                       </select>
-                      {/* <p className="text-xs">{task.project.name}</p> */}
                       <IoCaretDown className="pointer-events-none absolute right-2" />
                     </div>
                   </div>
@@ -188,7 +169,6 @@ export default function TasksDetailPage({
                 <div className="my-2">
                   <div className="flex justify-center items-center cursor-pointer">
                     <div className="flex items-center rounded p-2 justify-between w-full border-0 shadow-[0_0_4px_1px_#22222210]">
-                      {/* <p className="text-xs">未完了</p> */}
                       <select
                         value={status}
                         onChange={(e) =>
