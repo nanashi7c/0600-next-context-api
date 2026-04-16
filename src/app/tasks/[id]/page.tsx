@@ -56,8 +56,7 @@ export default function TasksDetailPage({
     fetchData();
   }, [id]);
 
-  const handleUpdate = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault;
+  const handleUpdate = async () => {
     if (!task) return;
     const res = await updateUserTask(id, {
       projectId,
@@ -138,7 +137,12 @@ export default function TasksDetailPage({
               </div>
             </div>
           </div>
-          <form onSubmit={handleUpdate}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleUpdate();
+            }}
+          >
             <div className="mb-12">
               <div className="my-4">
                 <div>
