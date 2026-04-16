@@ -4,7 +4,7 @@ import axios from "axios";
 import { ProjectsResponse, StatsResponse, TasksResponse } from "../types";
 import { TASK_STATUSES } from "../constants";
 import { ProjectParams } from "../app/api/datastore/models/project";
-import { TaskParams } from "../app/api/datastore/models/task";
+import { Task, TaskParams } from "../app/api/datastore/models/task";
 
 export async function getUserStats(): Promise<StatsResponse> {
   try {
@@ -41,7 +41,11 @@ export async function getUserProjects(params?: {
   }
 }
 
-export async function updateUserTask(id, params): Promise<any> {
+export async function updateUserTask(
+  id: string,
+  // params: TaskParams,
+  params: Partial<Omit<TaskParams, "project">> & { projectId?: string },
+): Promise<{ data: TaskParams } | undefined> {
   try {
     const response = await axios.patch(`/api/v1/users/tasks/${id}`, params);
     return response.data;
@@ -67,5 +71,15 @@ export async function getUserTask(id: string): Promise<TaskParams | undefined> {
     return response.data.data;
   } catch (error) {
     console.error(error);
+  }
+}
+
+export async function deleteUserTask(id: string): Promise<boolean> {
+  try {
+    await axios.delete(`/api/v1/users/tasks/${id}`);
+    return true;
+  } catch (error) {
+    console.error(error);
+    return false;
   }
 }
