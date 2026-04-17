@@ -3,17 +3,18 @@
 import { use, useEffect, useState } from "react";
 import { IoArrowBack, IoCaretDown, IoTrashOutline } from "react-icons/io5";
 
+import { TaskStatus } from "@/types";
+import { useRouter } from "next/navigation";
+import { TaskParams } from "@/app/api/datastore/models/task";
+import { ProjectParams } from "@/app/api/datastore/models/project";
 import {
   deleteUserTask,
   getUserProjects,
   getUserTask,
   updateUserTask,
-} from "../../../lib/api";
-import { TaskStatus } from "../../../types";
-import { useRouter } from "next/navigation";
-import { STATUS_LABELS, TASK_STATUSES } from "../../../constants";
-import { TaskParams } from "../../api/datastore/models/task";
-import { ProjectParams } from "../../api/datastore/models/project";
+} from "@/lib/api";
+import { STATUS_LABELS, TASK_STATUSES } from "@/constants";
+import { Button } from "../../../components/button/Button";
 
 export default function TasksDetailPage({
   params,
@@ -202,19 +203,13 @@ export default function TasksDetailPage({
             </div>
             <div>
               <div className="w-full flex h-12">
-                <button
-                  className="mr-4 bg-(--primary-color) cursor-pointer py-2 px-4 rounded w-full transition-[background] duration-500 tracking-[1.4px] text-[10px] shadow-[2px_2px_4px_1px_#1e514036] text-(--font-color-light) border-0 hover:bg-(--primary-color-darker)"
-                  type="submit"
-                >
+                <Button type="submit">
                   <span className="text-sm">更新</span>
-                </button>
-                <button
-                  type="button"
-                  className="mr-4 bg-(--secondary-color) cursor-pointer py-2 px-4 rounded w-full transition-[background] duration-500 tracking-[1.4px] text-[10px] shadow-[2px_2px_4px_1px_#1e514036] text-(--font-color-light)  border-0  hover:opacity-80"
-                  onClick={handleReset}
-                >
+                </Button>
+
+                <Button variant="secondary" onClick={handleReset}>
                   <span className="text-sm">リセット</span>
-                </button>
+                </Button>
               </div>
               <div
                 className="cursor-pointer pt-8 pb-4"
