@@ -80,6 +80,37 @@ export const Header = () => {
                 </div>
               </div>
             </div>
+
+            {isProfileOpen && (
+              <>
+                <Modal
+                  isOpen={isProfileOpen}
+                  onClose={() => setIsProfileOpen(false)}
+                  variant="popover"
+                >
+                  <ul className="flex flex-col gap-2">
+                    <li>
+                      <button
+                        type="button"
+                        onClick={() => setIsProfileOpen(false)}
+                        className="w-full text-left px-4 py-3 rounded-md hover:bg-gray-100 cursor-pointer text-gray-900"
+                      >
+                        プロフィール
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        onClick={() => setIsProfileOpen(false)}
+                        className="w-full text-left px-4 py-3 rounded-md hover:bg-gray-100 cursor-pointer text-gray-900"
+                      >
+                        ログアウト
+                      </button>
+                    </li>
+                  </ul>
+                </Modal>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -90,7 +121,7 @@ export const Header = () => {
       >
         <AddTaskForm onDone={() => setIsAddOpen(false)} />
       </Modal>
-      <Modal
+      {/* <Modal
         isOpen={isProfileOpen}
         onClose={() => setIsProfileOpen(false)}
         title="プロフィール"
@@ -115,7 +146,7 @@ export const Header = () => {
             </button>
           </li>
         </ul>
-      </Modal>
+      </Modal> */}
     </header>
   );
 };
