@@ -18,8 +18,32 @@
 @theme {
   --color-brand: var(--primary-color);
   --color-light: var(--font-color-light);
+  --animate-slide-in-right: slide-in-right 0.3s ease-out;
 }
 
+@keyframes slide-in-right {
+  from {
+    transform: translateX(calc(100% + 2rem));
+    /* opacity: 0; */
+  }
+
+  to {
+    transform: translateX(0);
+    /* opacity: 1 */
+  }
+
+  0% {
+    margin-left: 100%;
+  }
+
+  80% {
+    margin-left: -10%;
+  }
+
+  100% {
+    margin-left: 0;
+  }
+}
 
 @layer base {
   html {

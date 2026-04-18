@@ -39,7 +39,7 @@ export const ToastProvider = ({ children }) => {
         {toasts.map((toast) => (
           <div
             key={toast.id}
-            className="rounded bg-(--primary-color) bg-white text-(--primary-color) shadow-[0_0_8px_1px_#22222220] text-xs min-w-[300px] border-b-4 border-(--primary-color)"
+            className="rounded bg-(--primary-color) bg-white text-(--primary-color) shadow-[0_0_8px_1px_#22222220] text-xs min-w-[300px] border-b-4 border-(--primary-color)  animate-slide-in-right"
           >
             <div className="flex justify-end p-[8px_8px_0]">
               <button onClick={() => removeToast(toast.id)}>
