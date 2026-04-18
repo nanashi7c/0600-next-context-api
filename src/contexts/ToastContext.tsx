@@ -27,7 +27,7 @@ export const ToastProvider = ({ children }) => {
       setToasts((prev) => [...prev, { id, message }]);
       setTimeout(() => {
         removeToast(id);
-      }, 50000);
+      }, 3000);
     },
     [removeToast],
   );
