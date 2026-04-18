@@ -34,6 +34,7 @@ export const Select = ({
   });
 
   useEffect(() => {
+    if (!isOpen) return;
     const handleClickOutside = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) {
         setIsOpen(false);
@@ -41,7 +42,7 @@ export const Select = ({
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }, [isOpen]);
 
   return (
     <div ref={ref} className={`relative ${className}`}>
@@ -81,25 +82,6 @@ export const Select = ({
           ))}
         </ul>
       )}
-
-      {/* {selectedItem ? selectedItem.label : ""}
-      <ul>
-        {options.map((optionItem) => {
-          return (
-            
-            <li>
-              <div
-                onClick={(e) => {
-                  debugger;
-                  onChange(value);
-                }}
-              >
-                {optionItem.label}
-              </div>
-            </li>
-          );
-        })}
-      </ul> */}
     </div>
   );
 };

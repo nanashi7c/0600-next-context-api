@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { TaskStatus } from "../../types";
-import { TaskParams } from "../../app/api/datastore/models/task";
-import { ProjectParams } from "../../app/api/datastore/models/project";
-import { TASK_STATUSES, STATUS_LABELS } from "../../constants";
+import { TaskStatus } from "@/types";
+import { TaskParams } from "@/app/api/datastore/models/task";
+import { ProjectParams } from "@/app/api/datastore/models/project";
+import { TASK_STATUSES, STATUS_LABELS } from "@/constants";
 import Link from "next/link";
 import { Select } from "../select/Select";
-import { IoArrowForward, IoCaretDown } from "react-icons/io5";
+import { IoArrowForward } from "react-icons/io5";
 
 type TaskPatch = {
   title?: string;
@@ -36,7 +36,6 @@ export const TaskRow = ({ task, projects, onUpdate }: Props) => {
       {/* タイトル */}
       <div className="pl-4 w-1/2 flex items-center py-2 text-xs">
         <div className="cursor-pointer w-full ">
-          {/* Todo: input要素 */}
           {isEditingTitle ? (
             <div>
               <input
@@ -74,17 +73,6 @@ export const TaskRow = ({ task, projects, onUpdate }: Props) => {
               onChange={(value) => onUpdate({ projectId: value })}
               iconSize="size-3"
             />
-            {/* <select
-              onChange={(e) => onUpdate({ projectId: e.target.value })}
-              value={task.project.id}
-            >
-              {projects.map((project) => (
-                <option key={project.id} value={project.id}>
-                  {project.name}
-                </option>
-              ))}
-            </select> */}
-            {/* <IoCaretDown className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2" /> */}
           </span>
         </div>
       </div>
@@ -101,32 +89,12 @@ export const TaskRow = ({ task, projects, onUpdate }: Props) => {
               onChange={(value) => onUpdate({ status: value as TaskStatus })}
               iconSize="size-3"
             />
-            {/* <select
-              name=""
-              id=""
-              value={task.status}
-              onChange={(e) =>
-                onUpdate({ status: e.target.value as TaskStatus })
-              }
-            >
-              {TASK_STATUSES.map((status) => (
-                <option key={status} value={status}>
-                  {STATUS_LABELS[status]}
-                </option>
-              ))}
-            </select> */}
           </span>
-          {/* <IoCaretDown /> */}
         </div>
       </div>
       {/* 期限日 */}
       <div className="w-1/10 flex items-center py-2 text-xs">
         <div className="cursor-pointer w-full flex items-center">
-          {/* <p className="min-w-full">
-            {task.deadline
-              ? new Date(task.deadline).toLocaleDateString("ja-JP")
-              : ""}
-          </p> */}
           <span className="min-w-full">
             <input
               type="date"

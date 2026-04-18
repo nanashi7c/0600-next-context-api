@@ -1,7 +1,7 @@
 "use client";
 
 import { use, useEffect, useState } from "react";
-import { IoArrowBack, IoCaretDown, IoTrashOutline } from "react-icons/io5";
+import { IoArrowBack, IoTrashOutline } from "react-icons/io5";
 
 import { TaskStatus } from "@/types";
 import { useRouter } from "next/navigation";
@@ -14,8 +14,8 @@ import {
   updateUserTask,
 } from "@/lib/api";
 import { STATUS_LABELS, TASK_STATUSES } from "@/constants";
-import { Button } from "../../../components/button/Button";
-import { Select } from "../../../components/select/Select";
+import { Button } from "@/components/button/Button";
+import { Select } from "@/components/select/Select";
 
 export default function TasksDetailPage({
   params,
@@ -97,14 +97,14 @@ export default function TasksDetailPage({
                   <p className="min-w-full">{task.title}</p>
                 </div>
               </h2>
-              <div
+              <button
+                type="button"
                 className="cursor-pointer flex justify-center items-center h-full"
                 onClick={handleDelete}
-                role="button"
                 aria-label="タスクを削除"
               >
                 <IoTrashOutline />
-              </div>
+              </button>
             </div>
             <div className="my-2 text-xs flex">
               <div className="mr-4">
@@ -133,10 +133,6 @@ export default function TasksDetailPage({
                   プロジェクト<span className="text-red-500 ml-1">*</span>
                 </div>
                 <div className="my-2 pb-[19px]">
-                  {/* <div className="flex justify-center items-center cursor-pointer flex-col"> */}
-                  {/* <div
-                    //  className="flex items-center rounded p-2 justify-between w-full border-0 shadow-[0_0_4px_1px_#22222210] relative"
-                    > */}
                   <div className="shadow-[0_0_4px_1px_#22222210]">
                     <Select
                       required
@@ -150,22 +146,6 @@ export default function TasksDetailPage({
                       iconSize="size-4"
                     />
                   </div>
-
-                  {/* <select
-                        required
-                        value={projectId}
-                        className="text-xs appearance-none bg-transparent w-full cursor-pointer pr-6"
-                        onChange={(e) => setProjectId(e.target.value)}
-                      >
-                        {projects.map((project) => (
-                          <option key={project.id} value={project.id}>
-                            {project.name}
-                          </option>
-                        ))}
-                      </select> */}
-                  {/* <IoCaretDown className="pointer-events-none absolute right-2" /> */}
-                  {/* </div> */}
-                  {/* </div> */}
                 </div>
               </div>
               <div className="my-4">
@@ -197,25 +177,6 @@ export default function TasksDetailPage({
                       placeholder="ステータスを選択してください"
                     />
                   </div>
-
-                  {/* <div className="flex justify-center items-center cursor-pointer">
-                    <div className="flex items-center rounded p-2 justify-between w-full border-0 shadow-[0_0_4px_1px_#22222210]"> */}
-                  {/* <select
-                        value={status}
-                        onChange={(e) =>
-                          setStatus(e.target.value as TaskStatus)
-                        }
-                        className="text-xs appearance-none bg-transparent w-full cursor-pointer pr-6"
-                      >
-                        {TASK_STATUSES.map((s) => (
-                          <option key={s} value={s}>
-                            {STATUS_LABELS[s]}
-                          </option>
-                        ))}
-                      </select> */}
-                  {/* <IoCaretDown /> */}
-                  {/* </div>
-                  </div> */}
                 </div>
               </div>
               <div className="my-4">
@@ -241,7 +202,8 @@ export default function TasksDetailPage({
                   <span className="text-sm">リセット</span>
                 </Button>
               </div>
-              <div
+              <button
+                type="button"
                 className="cursor-pointer pt-8 pb-4"
                 onClick={() => router.back()}
               >
@@ -249,7 +211,7 @@ export default function TasksDetailPage({
                   <IoArrowBack />
                   戻る
                 </p>
-              </div>
+              </button>
             </div>
           </form>
         </div>
