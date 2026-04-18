@@ -1,19 +1,22 @@
 "use client";
 
 import { use, useEffect, useState } from "react";
-import { IoArrowBack, IoCaretDown, IoTrashOutline } from "react-icons/io5";
+import { IoArrowBack, IoTrashOutline } from "react-icons/io5";
 
+import { TaskStatus } from "@/types";
+import { useRouter } from "next/navigation";
+import { TaskParams } from "@/app/api/datastore/models/task";
+import { ProjectParams } from "@/app/api/datastore/models/project";
 import {
   deleteUserTask,
   getUserProjects,
   getUserTask,
   updateUserTask,
-} from "../../../lib/api";
-import { TaskStatus } from "../../../types";
-import { useRouter } from "next/navigation";
-import { STATUS_LABELS, TASK_STATUSES } from "../../../constants";
-import { TaskParams } from "../../api/datastore/models/task";
-import { ProjectParams } from "../../api/datastore/models/project";
+} from "@/lib/api";
+import { STATUS_LABELS, TASK_STATUSES } from "@/constants";
+import { Button } from "@/components/button/Button";
+import { Select } from "@/components/select/Select";
+import { useToast } from "../../../contexts/ToastContext";
 
 export default function TasksDetailPage({
   params,
@@ -29,6 +32,7 @@ export default function TasksDetailPage({
   const [deadline, setDeadline] = useState("");
   const [status, setStatus] = useState<TaskStatus | "">("");
   const [description, setDescription] = useState("");
+  const { showToast } = useToast();
 
   const applyTaskForm = (t: TaskParams) => {
     setProjectId(t.project?.id ?? "");
@@ -65,8 +69,8 @@ export default function TasksDetailPage({
       description,
     });
     if (res?.data) {
-      setTask(res.data);
-      applyTaskForm(res.data);
+      showToast("タスクを更新しました。");
+      router.push("/");
     }
   };
 
@@ -95,14 +99,14 @@ export default function TasksDetailPage({
                   <p className="min-w-full">{task.title}</p>
                 </div>
               </h2>
-              <div
+              <button
+                type="button"
                 className="cursor-pointer flex justify-center items-center h-full"
                 onClick={handleDelete}
-                role="button"
                 aria-label="タスクを削除"
               >
                 <IoTrashOutline />
-              </div>
+              </button>
             </div>
             <div className="my-2 text-xs flex">
               <div className="mr-4">
@@ -131,22 +135,18 @@ export default function TasksDetailPage({
                   プロジェクト<span className="text-red-500 ml-1">*</span>
                 </div>
                 <div className="my-2 pb-[19px]">
-                  <div className="flex justify-center items-center cursor-pointer flex-col">
-                    <div className="flex items-center rounded p-2 justify-between w-full border-0 shadow-[0_0_4px_1px_#22222210] relative">
-                      <select
-                        required
-                        value={projectId}
-                        className="text-xs appearance-none bg-transparent w-full cursor-pointer pr-6"
-                        onChange={(e) => setProjectId(e.target.value)}
-                      >
-                        {projects.map((project) => (
-                          <option key={project.id} value={project.id}>
-                            {project.name}
-                          </option>
-                        ))}
-                      </select>
-                      <IoCaretDown className="pointer-events-none absolute right-2" />
-                    </div>
+                  <div className="shadow-[0_0_4px_1px_#22222210]">
+                    <Select
+                      required
+                      value={projectId}
+                      options={projects.map((project) => ({
+                        label: project.name,
+                        value: project.id,
+                      }))}
+                      onChange={(value) => setProjectId(value)}
+                      placeholder="プロジェクトを選択してください"
+                      iconSize="size-4"
+                    />
                   </div>
                 </div>
               </div>
@@ -167,23 +167,17 @@ export default function TasksDetailPage({
               <div className="my-4">
                 <div>ステータス</div>
                 <div className="my-2">
-                  <div className="flex justify-center items-center cursor-pointer">
-                    <div className="flex items-center rounded p-2 justify-between w-full border-0 shadow-[0_0_4px_1px_#22222210]">
-                      <select
-                        value={status}
-                        onChange={(e) =>
-                          setStatus(e.target.value as TaskStatus)
-                        }
-                        className="text-xs appearance-none bg-transparent w-full cursor-pointer pr-6"
-                      >
-                        {TASK_STATUSES.map((s) => (
-                          <option key={s} value={s}>
-                            {STATUS_LABELS[s]}
-                          </option>
-                        ))}
-                      </select>
-                      <IoCaretDown />
-                    </div>
+                  <div className="shadow-[0_0_4px_1px_#22222210]">
+                    <Select
+                      required
+                      value={status}
+                      options={TASK_STATUSES.map((status) => ({
+                        label: STATUS_LABELS[status],
+                        value: status,
+                      }))}
+                      onChange={(value) => setStatus(value as TaskStatus)}
+                      placeholder="ステータスを選択してください"
+                    />
                   </div>
                 </div>
               </div>
@@ -202,21 +196,16 @@ export default function TasksDetailPage({
             </div>
             <div>
               <div className="w-full flex h-12">
-                <button
-                  className="mr-4 bg-(--primary-color) cursor-pointer py-2 px-4 rounded w-full transition-[background] duration-500 tracking-[1.4px] text-[10px] shadow-[2px_2px_4px_1px_#1e514036] text-(--font-color-light) border-0 hover:bg-(--primary-color-darker)"
-                  type="submit"
-                >
+                <Button type="submit">
                   <span className="text-sm">更新</span>
-                </button>
-                <button
-                  type="button"
-                  className="mr-4 bg-(--secondary-color) cursor-pointer py-2 px-4 rounded w-full transition-[background] duration-500 tracking-[1.4px] text-[10px] shadow-[2px_2px_4px_1px_#1e514036] text-(--font-color-light)  border-0  hover:opacity-80"
-                  onClick={handleReset}
-                >
+                </Button>
+
+                <Button variant="secondary" onClick={handleReset}>
                   <span className="text-sm">リセット</span>
-                </button>
+                </Button>
               </div>
-              <div
+              <button
+                type="button"
                 className="cursor-pointer pt-8 pb-4"
                 onClick={() => router.back()}
               >
@@ -224,7 +213,7 @@ export default function TasksDetailPage({
                   <IoArrowBack />
                   戻る
                 </p>
-              </div>
+              </button>
             </div>
           </form>
         </div>

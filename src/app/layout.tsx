@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import { TasksProvider } from "../contexts/TasksContext";
 import { StatsProvider } from "../contexts/StatsContext";
 import { ProjectsProvider } from "../contexts/ProjectsContext";
+import { ToastProvider } from "../contexts/ToastContext";
 
 //フォント読み込み
 const inter = Inter({
@@ -21,20 +22,19 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ja">
-      <body
-        // className={`{inter.className} ${geistSans.variable} ${geistMono.variable}`}
-        className={inter.className}
-      >
+      <body className={inter.className}>
         <TasksProvider>
           <StatsProvider>
             <ProjectsProvider>
-              <Header />
-              <div className="flex h-[calc(100vh-72px)] font-light overflow-x-auto">
-                <Sidebar />
-                <main className="flex font-light flex-1 min-w-0 bg-(--content-bg-color)">
-                  {children}
-                </main>
-              </div>
+              <ToastProvider>
+                <Header />
+                <div className="flex h-[calc(100vh-72px)] font-light overflow-x-auto">
+                  <Sidebar />
+                  <main className="flex font-light flex-1 min-w-0 bg-(--content-bg-color)">
+                    {children}
+                  </main>
+                </div>
+              </ToastProvider>
             </ProjectsProvider>
           </StatsProvider>
         </TasksProvider>
