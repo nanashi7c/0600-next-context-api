@@ -4,7 +4,7 @@ import { TaskParams } from "../../app/api/datastore/models/task";
 import { ProjectParams } from "../../app/api/datastore/models/project";
 import { TASK_STATUSES, STATUS_LABELS } from "../../constants";
 import Link from "next/link";
-import { Select } from "../select";
+import { Select } from "../select/Select";
 import { IoArrowForward, IoCaretDown } from "react-icons/io5";
 
 type TaskPatch = {
@@ -63,15 +63,16 @@ export const TaskRow = ({ task, projects, onUpdate }: Props) => {
       </div>
       {/* プロジェクト */}
       <div className="w-[14%] flex items-center py-2 text-xs">
-        <div className="cursor-pointer w-full flex items-center p-2 justify-between relative">
+        <div className="cursor-pointer w-full flex items-center justify-between relative">
           <span className="min-h-full">
             <Select
-              data={projects.map((project) => ({
+              options={projects.map((project) => ({
                 label: project.name,
                 value: project.id,
               }))}
               value={task.project.id}
               onChange={(value) => onUpdate({ projectId: value })}
+              iconSize="size-3"
             />
             {/* <select
               onChange={(e) => onUpdate({ projectId: e.target.value })}
@@ -83,15 +84,24 @@ export const TaskRow = ({ task, projects, onUpdate }: Props) => {
                 </option>
               ))}
             </select> */}
-            <IoCaretDown className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2" />
+            {/* <IoCaretDown className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2" /> */}
           </span>
         </div>
       </div>
       {/* ステータス */}
       <div className="w-[12%] flex items-center py-2 text-xs">
-        <div className="cursor-pointer w-full flex items-center p-2 justify-between">
+        <div className="cursor-pointer w-full flex items-center justify-between">
           <span className="min-h-full">
-            <select
+            <Select
+              options={TASK_STATUSES.map((status) => ({
+                label: STATUS_LABELS[status],
+                value: status,
+              }))}
+              value={task.status}
+              onChange={(value) => onUpdate({ status: value as TaskStatus })}
+              iconSize="size-3"
+            />
+            {/* <select
               name=""
               id=""
               value={task.status}
@@ -104,9 +114,9 @@ export const TaskRow = ({ task, projects, onUpdate }: Props) => {
                   {STATUS_LABELS[status]}
                 </option>
               ))}
-            </select>
+            </select> */}
           </span>
-          <IoCaretDown />
+          {/* <IoCaretDown /> */}
         </div>
       </div>
       {/* 期限日 */}

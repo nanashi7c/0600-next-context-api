@@ -15,6 +15,7 @@ import {
 } from "@/lib/api";
 import { STATUS_LABELS, TASK_STATUSES } from "@/constants";
 import { Button } from "../../../components/button/Button";
+import { Select } from "../../../components/select/Select";
 
 export default function TasksDetailPage({
   params,
@@ -132,9 +133,25 @@ export default function TasksDetailPage({
                   プロジェクト<span className="text-red-500 ml-1">*</span>
                 </div>
                 <div className="my-2 pb-[19px]">
-                  <div className="flex justify-center items-center cursor-pointer flex-col">
-                    <div className="flex items-center rounded p-2 justify-between w-full border-0 shadow-[0_0_4px_1px_#22222210] relative">
-                      <select
+                  {/* <div className="flex justify-center items-center cursor-pointer flex-col"> */}
+                  {/* <div
+                    //  className="flex items-center rounded p-2 justify-between w-full border-0 shadow-[0_0_4px_1px_#22222210] relative"
+                    > */}
+                  <div className="shadow-[0_0_4px_1px_#22222210]">
+                    <Select
+                      required
+                      value={projectId}
+                      options={projects.map((project) => ({
+                        label: project.name,
+                        value: project.id,
+                      }))}
+                      onChange={(value) => setProjectId(value)}
+                      placeholder="プロジェクトを選択してください"
+                      iconSize="size-4"
+                    />
+                  </div>
+
+                  {/* <select
                         required
                         value={projectId}
                         className="text-xs appearance-none bg-transparent w-full cursor-pointer pr-6"
@@ -145,10 +162,10 @@ export default function TasksDetailPage({
                             {project.name}
                           </option>
                         ))}
-                      </select>
-                      <IoCaretDown className="pointer-events-none absolute right-2" />
-                    </div>
-                  </div>
+                      </select> */}
+                  {/* <IoCaretDown className="pointer-events-none absolute right-2" /> */}
+                  {/* </div> */}
+                  {/* </div> */}
                 </div>
               </div>
               <div className="my-4">
@@ -168,9 +185,22 @@ export default function TasksDetailPage({
               <div className="my-4">
                 <div>ステータス</div>
                 <div className="my-2">
-                  <div className="flex justify-center items-center cursor-pointer">
-                    <div className="flex items-center rounded p-2 justify-between w-full border-0 shadow-[0_0_4px_1px_#22222210]">
-                      <select
+                  <div className="shadow-[0_0_4px_1px_#22222210]">
+                    <Select
+                      required
+                      value={status}
+                      options={TASK_STATUSES.map((status) => ({
+                        label: STATUS_LABELS[status],
+                        value: status,
+                      }))}
+                      onChange={(value) => setStatus(value as TaskStatus)}
+                      placeholder="ステータスを選択してください"
+                    />
+                  </div>
+
+                  {/* <div className="flex justify-center items-center cursor-pointer">
+                    <div className="flex items-center rounded p-2 justify-between w-full border-0 shadow-[0_0_4px_1px_#22222210]"> */}
+                  {/* <select
                         value={status}
                         onChange={(e) =>
                           setStatus(e.target.value as TaskStatus)
@@ -182,10 +212,10 @@ export default function TasksDetailPage({
                             {STATUS_LABELS[s]}
                           </option>
                         ))}
-                      </select>
-                      <IoCaretDown />
-                    </div>
-                  </div>
+                      </select> */}
+                  {/* <IoCaretDown /> */}
+                  {/* </div>
+                  </div> */}
                 </div>
               </div>
               <div className="my-4">
