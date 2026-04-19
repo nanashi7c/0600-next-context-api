@@ -10,6 +10,7 @@ import { Modal } from "../modal/Modal";
 import { AddTaskForm } from "../modal/AddTaskForm";
 import { useState } from "react";
 import { title } from "node:process";
+import { ProfileMenu } from "../modal/ProfileMenu";
 
 export const Header = () => {
   const [isAddOpen, setIsAddOpen] = useState(false);
@@ -83,7 +84,7 @@ export const Header = () => {
 
             {isProfileOpen && (
               <>
-                <Modal
+                {/* <Modal
                   isOpen={isProfileOpen}
                   onClose={() => setIsProfileOpen(false)}
                   variant="popover"
@@ -108,6 +109,13 @@ export const Header = () => {
                       </button>
                     </li>
                   </ul>
+                </Modal> */}
+                <Modal
+                  isOpen={isProfileOpen}
+                  onClose={() => setIsProfileOpen(false)}
+                  variant="popover"
+                >
+                  <ProfileMenu onDone={() => setIsProfileOpen(false)} />
                 </Modal>
               </>
             )}
@@ -117,7 +125,7 @@ export const Header = () => {
       <Modal
         isOpen={isAddOpen}
         onClose={() => setIsAddOpen(false)}
-        title="新規タスク"
+        title="タスクを追加"
       >
         <AddTaskForm onDone={() => setIsAddOpen(false)} />
       </Modal>
