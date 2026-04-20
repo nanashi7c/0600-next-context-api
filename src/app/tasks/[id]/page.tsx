@@ -17,6 +17,7 @@ import { STATUS_LABELS, TASK_STATUSES } from "@/constants";
 import { Button } from "@/components/button/Button";
 import { Select } from "@/components/select/Select";
 import { useToast } from "../../../contexts/ToastContext";
+import { useTasks } from "../../../contexts/TasksContext";
 
 export default function TasksDetailPage({
   params,
@@ -33,6 +34,7 @@ export default function TasksDetailPage({
   const [status, setStatus] = useState<TaskStatus | "">("");
   const [description, setDescription] = useState("");
   const { showToast } = useToast();
+  const { fetchTasks } = useTasks();
 
   const applyTaskForm = (t: TaskParams) => {
     setProjectId(t.project?.id ?? "");
@@ -69,6 +71,7 @@ export default function TasksDetailPage({
       description,
     });
     if (res?.data) {
+      await fetchTasks();
       showToast("タスクを更新しました。");
       router.push("/");
     }
@@ -83,7 +86,11 @@ export default function TasksDetailPage({
     if (!task) return;
     if (!window.confirm("このタスクを削除しますか？")) return;
     const ok = await deleteUserTask(id);
-    if (ok) router.back();
+    if (ok) {
+      await fetchTasks();
+      showToast("タスクを削除しました。");
+      router.back();
+    }
   };
 
   if (!task) return <div>Loading...</div>;
