@@ -44,7 +44,7 @@ export const TaskRow = ({ task, projects, onUpdate }: Props) => {
   }, [isEditingTitle]);
 
   return (
-    <div className="flex py-2 transition-all duration-500 hover:shadow-[1px_1px_3px_1px_#22222210] hover:scale-[1.01]">
+    <div className="relative flex py-2 transition-all duration-500 hover:shadow-[1px_1px_3px_1px_#22222210] hover:scale-[1.01] hover:z-10">
       {/* タイトル */}
       <div className="pl-4 w-1/2 flex items-center py-2 text-xs">
         <div className="cursor-pointer w-full ">
@@ -75,7 +75,7 @@ export const TaskRow = ({ task, projects, onUpdate }: Props) => {
       {/* プロジェクト */}
       <div className="w-[14%] flex items-center py-2 text-xs">
         <div className="cursor-pointer w-full flex items-center justify-between relative">
-          <span className="min-h-full">
+          <span className="min-h-full w-full">
             <Select
               options={projects.map((project) => ({
                 label: project.name,
@@ -91,7 +91,7 @@ export const TaskRow = ({ task, projects, onUpdate }: Props) => {
       {/* ステータス */}
       <div className="w-[12%] flex items-center py-2 text-xs">
         <div className="cursor-pointer w-full flex items-center justify-between">
-          <span className="min-h-full">
+          <span className="min-h-full w-full">
             <Select
               options={TASK_STATUSES.map((status) => ({
                 label: STATUS_LABELS[status],

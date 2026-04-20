@@ -10,7 +10,7 @@ export const ProjectList = () => {
         <a key={project.id} href="">
           {/* プロジェクト1のカード */}
           <div
-            className=" border-l-[5px] border-solid p-4 border-0 shadow-[1px_1px_3px_1px_#22222210 mb-4 bg-(--background-color) transition-all duration-500"
+            className=" border-l-[5px] border-solid p-4 border-0 shadow-[1px_1px_3px_1px_#22222210 mb-4 bg-(--background-color) transition-all duration-500 hover:shadow-[1px_1px_8px_1px_#22222220] hover:scale-105"
             style={{ borderColor: project.color }}
           >
             {/* プロジェクトヘッダー（プロジェクト名とその期限） */}

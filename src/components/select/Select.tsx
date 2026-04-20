@@ -67,7 +67,7 @@ export const Select = ({
         />
       </div>
       {isOpen && (
-        <ul className="absolute z-1 w-full bg-white rounded shadow-[2px_2px_4px_1px_#22222210] max-h-60 overflow-auto py-2">
+        <ul className="absolute z-50 w-full bg-white rounded shadow-[2px_2px_4px_1px_#22222210] max-h-60 overflow-auto py-2">
           {options.map((opt) => (
             <li
               key={opt.value}
