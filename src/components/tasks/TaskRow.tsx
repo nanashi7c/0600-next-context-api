@@ -24,6 +24,18 @@ export const TaskRow = ({ task, projects, onUpdate }: Props) => {
   const [draftTitle, setDraftTitle] = useState(task.title);
   const titleInputRef = useRef<HTMLInputElement>(null);
   const [isEditingTitle, setIsEditingTitle] = useState(false);
+  const deadlineInputRef = useRef<HTMLInputElement>(null);
+  const [isEditingDeadline, setIsEditingDeadline] = useState(false);
+
+  const deadlineValue = task.deadline
+    ? new Date(task.deadline).toISOString().split("T")[0]
+    : "";
+
+  useEffect(() => {
+    if (isEditingDeadline && deadlineInputRef.current) {
+      deadlineInputRef.current.focus();
+    }
+  }, [isEditingDeadline]);
 
   useEffect(() => {
     if (isEditingTitle && titleInputRef.current) {
@@ -32,7 +44,7 @@ export const TaskRow = ({ task, projects, onUpdate }: Props) => {
   }, [isEditingTitle]);
 
   return (
-    <div className="flex py-2 transition-all duration-500">
+    <div className="flex py-2 transition-all duration-500 hover:shadow-[1px_1px_3px_1px_#22222210] hover:scale-[1.01]">
       {/* タイトル */}
       <div className="pl-4 w-1/2 flex items-center py-2 text-xs">
         <div className="cursor-pointer w-full ">
@@ -96,18 +108,25 @@ export const TaskRow = ({ task, projects, onUpdate }: Props) => {
       <div className="w-1/10 flex items-center py-2 text-xs">
         <div className="cursor-pointer w-full flex items-center">
           <span className="min-w-full">
-            <input
-              type="date"
-              className="min-w-full"
-              value={
-                task.deadline
-                  ? new Date(task.deadline).toISOString().split("T")[0]
-                  : ""
-              }
-              onChange={(e) => {
-                onUpdate({ deadline: e.target.value });
-              }}
-            />
+            {isEditingDeadline ? (
+              <input
+                type="date"
+                className="min-w-full"
+                ref={deadlineInputRef}
+                value={deadlineValue}
+                onChange={(e) => {
+                  onUpdate({ deadline: e.target.value });
+                }}
+                onBlur={() => setIsEditingDeadline(false)}
+              />
+            ) : (
+              <p
+                onClick={() => setIsEditingDeadline(true)}
+                className="min-w-full"
+              >
+                {deadlineValue || "-"}
+              </p>
+            )}
           </span>
         </div>
       </div>
