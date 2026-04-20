@@ -1,10 +1,19 @@
 import { IoChevronBack } from "react-icons/io5";
 
-// TODO: サイドバー開閉機能実装
-export const CollapseToggle = () => {
+type Props = {
+  isOpen: boolean;
+  onToggle: () => void;
+};
+
+export const CollapseToggle = ({ isOpen, onToggle }: Props) => {
   return (
-    <span className="cursor-pointer transition-transform duration-200">
+    <button
+      type="button"
+      onClick={onToggle}
+      aria-label={isOpen ? "サイドバーを閉じる" : "サイドバーを開く"}
+      className={`cursor-pointer transition-transform duration-200 ${isOpen ? "rotate-0" : "rotate-180"}`}
+    >
       <IoChevronBack />
-    </span>
+    </button>
   );
 };
