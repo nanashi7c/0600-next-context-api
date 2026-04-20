@@ -1,6 +1,13 @@
 "use client";
 
-import React, { createContext, useCallback, useContext, useState } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { IoCheckmarkCircleOutline, IoClose } from "react-icons/io5";
 
 interface Toast {
@@ -16,8 +23,14 @@ const ToastContext = createContext<ToastContextValue | null>(null);
 
 export const ToastProvider = ({ children }) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
+  const timersRef = useRef(new Map<string, ReturnType<typeof setTimeout>>());
 
   const removeToast = useCallback((id: string) => {
+    const t = timersRef.current.get(id);
+    if (t) {
+      clearTimeout(t);
+      timersRef.current.delete(id);
+    }
     setToasts((prev) => prev.filter((t) => t.id !== id));
   }, []);
 
@@ -25,12 +38,21 @@ export const ToastProvider = ({ children }) => {
     (message: string) => {
       const id = crypto.randomUUID();
       setToasts((prev) => [...prev, { id, message }]);
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         removeToast(id);
       }, 3000);
+      timersRef.current.set(id, timer);
     },
     [removeToast],
   );
+
+  useEffect(() => {
+    const timers = timersRef.current;
+    return () => {
+      timers.forEach(clearTimeout);
+      timers.clear();
+    };
+  }, []);
 
   return (
     <ToastContext value={{ showToast }}>
@@ -39,7 +61,7 @@ export const ToastProvider = ({ children }) => {
         {toasts.map((toast) => (
           <div
             key={toast.id}
-            className="rounded bg-(--primary-color) bg-white text-(--primary-color) shadow-[0_0_8px_1px_#22222220] text-xs min-w-[300px] border-b-4 border-(--primary-color)  animate-slide-in-right"
+            className="rounded bg-white text-(--primary-color) shadow-[0_0_8px_1px_#22222220] text-xs min-w-[300px] border-b-4 border-(--primary-color)  animate-slide-in-right"
           >
             <div className="flex justify-end p-[8px_8px_0]">
               <button onClick={() => removeToast(toast.id)}>

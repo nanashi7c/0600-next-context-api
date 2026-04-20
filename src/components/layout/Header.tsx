@@ -9,7 +9,6 @@ import {
 import { Modal } from "../modal/Modal";
 import { AddTaskForm } from "../modal/AddTaskForm";
 import { useState } from "react";
-import { title } from "node:process";
 import { ProfileMenu } from "../modal/ProfileMenu";
 
 export const Header = () => {
@@ -33,8 +32,8 @@ export const Header = () => {
         <div className="mr-8 flex">
           <ul className="flex mr-4 items-center">
             <li className="mr-4">
-              <div
-                role="button"
+              <button
+                type="button"
                 aria-label="タスクを追加"
                 onClick={() => setIsAddOpen(true)}
                 className={
@@ -42,25 +41,29 @@ export const Header = () => {
                 }
               >
                 <IoAdd size={24} />
-              </div>
+              </button>
             </li>
             <li className="mr-4">
-              <div
+              <button
+                type="button"
+                aria-label="お知らせ"
                 className={
                   "transition-colors duration-500 cursor-pointer flex justify-center items-center h-full"
                 }
               >
                 <IoInformationCircleSharp size={24} />
-              </div>
+              </button>
             </li>
             <li className="mr-4">
-              <div
+              <button
+                type="button"
+                aria-label="通知"
                 className={
                   "transition-colors duration-500 cursor-pointer flex justify-center items-center h-full"
                 }
               >
                 <IoNotificationsSharp size={24} />
-              </div>
+              </button>
             </li>
           </ul>
           {/* プロフィールアイコン */}
@@ -84,32 +87,6 @@ export const Header = () => {
 
             {isProfileOpen && (
               <>
-                {/* <Modal
-                  isOpen={isProfileOpen}
-                  onClose={() => setIsProfileOpen(false)}
-                  variant="popover"
-                >
-                  <ul className="flex flex-col gap-2">
-                    <li>
-                      <button
-                        type="button"
-                        onClick={() => setIsProfileOpen(false)}
-                        className="w-full text-left px-4 py-3 rounded-md hover:bg-gray-100 cursor-pointer text-gray-900"
-                      >
-                        プロフィール
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        type="button"
-                        onClick={() => setIsProfileOpen(false)}
-                        className="w-full text-left px-4 py-3 rounded-md hover:bg-gray-100 cursor-pointer text-gray-900"
-                      >
-                        ログアウト
-                      </button>
-                    </li>
-                  </ul>
-                </Modal> */}
                 <Modal
                   isOpen={isProfileOpen}
                   onClose={() => setIsProfileOpen(false)}
@@ -129,32 +106,6 @@ export const Header = () => {
       >
         <AddTaskForm onDone={() => setIsAddOpen(false)} />
       </Modal>
-      {/* <Modal
-        isOpen={isProfileOpen}
-        onClose={() => setIsProfileOpen(false)}
-        title="プロフィール"
-      >
-        <ul className="flex flex-col gap-2">
-          <li>
-            <button
-              type="button"
-              onClick={() => setIsProfileOpen(false)}
-              className="w-full text-left px-4 py-3 rounded-md hover:bg-gray-100 cursor-pointer"
-            >
-              プロフィール
-            </button>
-          </li>
-          <li>
-            <button
-              type="button"
-              onClick={() => setIsProfileOpen(false)}
-              className="w-full text-left px-4 py-3 rounded-md hover:bg-gray-100 cursor-pointer"
-            >
-              ログアウト
-            </button>
-          </li>
-        </ul>
-      </Modal> */}
     </header>
   );
 };

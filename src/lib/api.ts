@@ -55,13 +55,13 @@ export async function updateUserTask(
 
 export async function createUserTask(
   params: Partial<Omit<TaskParams, "project">> & { projectId?: string },
-): Promise<boolean> {
+): Promise<{ data: TaskParams } | undefined> {
   try {
-    await axios.post(`/api/v1/users/tasks`, params);
-    return true;
+    const response = await axios.post(`/api/v1/users/tasks`, params);
+    return response.data;
   } catch (error) {
     console.error(error);
-    return false;
+    return undefined;
   }
 }
 
