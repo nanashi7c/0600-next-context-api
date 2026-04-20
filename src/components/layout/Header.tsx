@@ -6,14 +6,12 @@ import {
   IoNotificationsSharp,
   IoPerson,
 } from "react-icons/io5";
-import { Modal } from "../modal/Modal";
-import { AddTaskForm } from "../modal/AddTaskForm";
 import { useState } from "react";
-import { ProfileMenu } from "../modal/ProfileMenu";
+import { ProfileDropdown } from "../dropdown/ProfileDropdown";
+import { useAddTaskModal } from "../../contexts/AddTaskModalContext";
 
 export const Header = () => {
-  const [isAddOpen, setIsAddOpen] = useState(false);
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const { openModal } = useAddTaskModal();
 
   return (
     <header className="bg-brand text-light">
@@ -35,7 +33,7 @@ export const Header = () => {
               <button
                 type="button"
                 aria-label="タスクを追加"
-                onClick={() => setIsAddOpen(true)}
+                onClick={openModal}
                 className={
                   "transition-colors duration-500 cursor-pointer flex justify-center items-center h-full"
                 }
@@ -67,45 +65,9 @@ export const Header = () => {
             </li>
           </ul>
           {/* プロフィールアイコン */}
-          <div className="relative">
-            <div
-              role="button"
-              aria-label="プロフィールメニューを開く"
-              onClick={() => setIsProfileOpen((v) => !v)}
-              className="cursor-pointer"
-            >
-              <div className="bg-[#e0e0e0] h-7 w-7 rounded-full flex justify-center items-center">
-                <div
-                  className={
-                    "transition-colors duration-500 cursor-pointer flex justify-center items-center h-full"
-                  }
-                >
-                  <IoPerson size={20} />
-                </div>
-              </div>
-            </div>
-
-            {isProfileOpen && (
-              <>
-                <Modal
-                  isOpen={isProfileOpen}
-                  onClose={() => setIsProfileOpen(false)}
-                  variant="popover"
-                >
-                  <ProfileMenu onDone={() => setIsProfileOpen(false)} />
-                </Modal>
-              </>
-            )}
-          </div>
+          <ProfileDropdown />
         </div>
       </div>
-      <Modal
-        isOpen={isAddOpen}
-        onClose={() => setIsAddOpen(false)}
-        title="タスクを追加"
-      >
-        <AddTaskForm onDone={() => setIsAddOpen(false)} />
-      </Modal>
     </header>
   );
 };
