@@ -77,9 +77,7 @@ export default function ProjectPage({
               </label>
               <div>
                 <p className="flex tracking-[0.1rem]">
-                  <span className="inline-block mr-2">
-                    <p>{project.shouldbe}</p>
-                  </span>
+                  <span className="inline-block mr-2">{project.shouldbe}</span>
                 </p>
               </div>
             </div>
