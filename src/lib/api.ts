@@ -43,7 +43,6 @@ export async function getUserProjects(params?: {
 
 export async function updateUserTask(
   id: string,
-  // params: TaskParams,
   params: Partial<Omit<TaskParams, "project">> & { projectId?: string },
 ): Promise<{ data: TaskParams } | undefined> {
   try {
@@ -51,6 +50,18 @@ export async function updateUserTask(
     return response.data;
   } catch (error) {
     console.error(error);
+  }
+}
+
+export async function createUserTask(
+  params: Partial<Omit<TaskParams, "project">> & { projectId?: string },
+): Promise<{ data: TaskParams } | undefined> {
+  try {
+    const response = await axios.post(`/api/v1/users/tasks`, params);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return undefined;
   }
 }
 
