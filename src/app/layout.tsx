@@ -6,6 +6,7 @@ import { TasksProvider } from "../contexts/TasksContext";
 import { StatsProvider } from "../contexts/StatsContext";
 import { ProjectsProvider } from "../contexts/ProjectsContext";
 import { ToastProvider } from "../contexts/ToastContext";
+import { AddTaskModalProvider } from "../contexts/AddTaskModalContext";
 
 //フォント読み込み
 const inter = Inter({
@@ -27,6 +28,7 @@ export default function RootLayout({ children }) {
           <StatsProvider>
             <ProjectsProvider>
               <ToastProvider>
+                <AddTaskModalProvider>
                 <Header />
                 <div className="flex h-[calc(100vh-72px)] font-light overflow-x-auto">
                   <Sidebar />
@@ -34,6 +36,7 @@ export default function RootLayout({ children }) {
                     {children}
                   </main>
                 </div>
+                </AddTaskModalProvider>
               </ToastProvider>
             </ProjectsProvider>
           </StatsProvider>

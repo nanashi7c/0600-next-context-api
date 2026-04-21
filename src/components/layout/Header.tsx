@@ -1,11 +1,18 @@
+"use client";
+
 import {
   IoAdd,
   IoInformationCircleSharp,
   IoNotificationsSharp,
   IoPerson,
 } from "react-icons/io5";
+import { useState } from "react";
+import { ProfileDropdown } from "../dropdown/ProfileDropdown";
+import { useAddTaskModal } from "../../contexts/AddTaskModalContext";
 
 export const Header = () => {
+  const { openModal } = useAddTaskModal();
+
   return (
     <header className="bg-brand text-light">
       {/* コンテンツ */}
@@ -23,49 +30,42 @@ export const Header = () => {
         <div className="mr-8 flex">
           <ul className="flex mr-4 items-center">
             <li className="mr-4">
-              <div
+              <button
+                type="button"
+                aria-label="タスクを追加"
+                onClick={openModal}
                 className={
                   "transition-colors duration-500 cursor-pointer flex justify-center items-center h-full"
                 }
               >
                 <IoAdd size={24} />
-              </div>
+              </button>
             </li>
             <li className="mr-4">
-              <div
+              <button
+                type="button"
+                aria-label="お知らせ"
                 className={
                   "transition-colors duration-500 cursor-pointer flex justify-center items-center h-full"
                 }
               >
                 <IoInformationCircleSharp size={24} />
-              </div>
+              </button>
             </li>
             <li className="mr-4">
-              <div
+              <button
+                type="button"
+                aria-label="通知"
                 className={
                   "transition-colors duration-500 cursor-pointer flex justify-center items-center h-full"
                 }
               >
                 <IoNotificationsSharp size={24} />
-              </div>
+              </button>
             </li>
           </ul>
           {/* プロフィールアイコン */}
-          <div
-          //  className="relative"
-          >
-            <div className="cursor-pointer">
-              <div className="bg-[#e0e0e0] h-7 w-7 rounded-full flex justify-center items-center">
-                <div
-                  className={
-                    "transition-colors duration-500 cursor-pointer flex justify-center items-center h-full"
-                  }
-                >
-                  <IoPerson size={20} />
-                </div>
-              </div>
-            </div>
-          </div>
+          <ProfileDropdown />
         </div>
       </div>
     </header>
