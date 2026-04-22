@@ -14,8 +14,8 @@ import {
   updateUserTask,
 } from "@/lib/api";
 import { STATUS_LABELS, TASK_STATUSES } from "@/constants";
-import { Button } from "@/components/button/Button";
-import { Select } from "@/components/select/Select";
+import { Button } from "@/components/button";
+import { Select } from "@/components/select";
 import { useToast } from "../../../contexts/ToastContext";
 
 export default function TasksDetailPage({

@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Header } from "../components/layout/Header";
-import { Sidebar } from "../components/layout/sidebar/Sidebar";
+import { Sidebar } from "../components/layout/sidebar";
 import { Inter } from "next/font/google";
 import { TasksProvider } from "../contexts/TasksContext";
 import { StatsProvider } from "../contexts/StatsContext";
