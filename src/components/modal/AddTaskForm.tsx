@@ -11,10 +11,7 @@ import { Button } from "../button/Button";
 import { useRouter } from "next/navigation";
 import AppDate from "../../app/api/lib/date";
 import { useToast } from "../../contexts/ToastContext";
-
-type Props = {
-  onDone: () => void;
-};
+import { useAddTaskModal } from "../../contexts/AddTaskModalContext";
 
 type FormErrors = {
   projectId?: string;
@@ -22,7 +19,8 @@ type FormErrors = {
   deadline?: string;
 };
 
-export const AddTaskForm = ({ onDone }: Props) => {
+export const AddTaskForm = () => {
+  const { closeModal } = useAddTaskModal();
   const { projects } = useProjects();
   const { fetchTasks } = useTasks();
   const { showToast } = useToast();
@@ -66,7 +64,7 @@ export const AddTaskForm = ({ onDone }: Props) => {
       if (res) {
         await fetchTasks();
         showToast("タスクを作成しました");
-        onDone();
+        closeModal();
         router.push("/");
       } else {
         showToast("タスクの作成に失敗しました");
@@ -182,7 +180,11 @@ export const AddTaskForm = ({ onDone }: Props) => {
         <Button type="submit" disabled={isSubmitting}>
           <span className="text-sm">作成</span>
         </Button>
-        <Button variant="secondary" onClick={onDone} disabled={isSubmitting}>
+        <Button
+          variant="secondary"
+          onClick={closeModal}
+          disabled={isSubmitting}
+        >
           <span className="text-sm">キャンセル</span>
         </Button>
       </div>
