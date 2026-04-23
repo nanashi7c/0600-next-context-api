@@ -1,6 +1,6 @@
 "use client";
 
-import { Pagenation } from "../../components/pagenation/Pagenation";
+import { Pagenation } from "../../components/pagenation";
 import { ProjectList } from "../../components/projects/ProjectList";
 import { useProjects } from "../../contexts/ProjectsContext";
 
