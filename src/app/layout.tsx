@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Header } from "../components/layout/Header";
-import { Sidebar } from "../components/layout/Sidebar";
+import { Sidebar } from "../components/layout/sidebar";
 import { Inter } from "next/font/google";
 import { TasksProvider } from "../contexts/TasksContext";
 import { StatsProvider } from "../contexts/StatsContext";
@@ -31,13 +31,13 @@ export default function RootLayout({ children }) {
               <ToastProvider>
                 <AddTaskModalProvider>
                   <AddTaskModal />
-                  <Header />
-                  <div className="flex h-[calc(100vh-72px)] font-light overflow-x-auto">
-                    <Sidebar />
-                    <main className="flex font-light flex-1 min-w-0 bg-(--content-bg-color)">
-                      {children}
-                    </main>
-                  </div>
+                    <Header />
+                    <div className="flex h-[calc(100vh-72px)] font-light overflow-x-auto">
+                      <Sidebar />
+                      <main className="flex font-light flex-1 min-w-0 bg-(--content-bg-color)">
+                        {children}
+                      </main>
+                    </div>
                 </AddTaskModalProvider>
               </ToastProvider>
             </ProjectsProvider>

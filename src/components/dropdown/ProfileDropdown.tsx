@@ -1,7 +1,7 @@
 "use client";
 
 import { IoLogOutSharp, IoPerson } from "react-icons/io5";
-import { Dropdown } from "./Dropdown";
+import { Dropdown } from ".";
 
 export const ProfileDropdown = () => {
   const closeOnly = () => undefined;

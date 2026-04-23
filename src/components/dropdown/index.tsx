@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode, useState } from "react";
-import { Modal } from "../modal/Modal";
+import { Modal } from "../modal";
 
 type MenuItem = {
   id: string;
@@ -14,7 +14,7 @@ type MenuItem = {
 
 type DropdownProps = {
   ariaLabel: string;
-  trigger: React.ReactNode;
+  trigger: ReactNode;
   items: MenuItem[];
 };
 

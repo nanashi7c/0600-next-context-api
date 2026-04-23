@@ -1,6 +1,6 @@
 "use client";
 
-import { Modal } from "./Modal";
+import { Modal } from ".";
 import { useAddTaskModal } from "../../contexts/AddTaskModalContext";
 import { AddTaskForm } from "./AddTaskForm";
 
