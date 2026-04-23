@@ -56,12 +56,12 @@ export class TaskModel {
     this.id = params.id;
     this._raw = params;
 
-    this._children = params.children?.map((it) => {
+    this._children = (params.children ?? []).map((it) => {
       if (!it.project && params.project) {
         it.project = params.project;
       }
 
-      return factory.task(it) || [];
+      return factory.task(it);
     });
     this._project = factory.project(params.project);
 
