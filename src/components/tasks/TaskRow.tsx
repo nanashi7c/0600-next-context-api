@@ -3,7 +3,7 @@ import { TaskParams } from "@/app/api/datastore/models/task";
 import { ProjectParams } from "@/app/api/datastore/models/project";
 import { TASK_STATUSES, STATUS_LABELS } from "@/constants";
 import Link from "next/link";
-import { Select } from "../select/Select";
+import { Select } from "../select";
 import { IoArrowForward } from "react-icons/io5";
 import { EditableField } from "../editableField";
 

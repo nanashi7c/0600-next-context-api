@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { IoPerson } from "react-icons/io5";
-import { Modal } from "../modal/Modal";
+import { Modal } from "../modal";
 import { ProfileMenu } from "../modal/ProfileMenu";
 
 export const ProfileDropdown = () => {

@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useState } from "react";
-import { Modal } from "../components/modal/Modal";
+import { Modal } from "../components/modal";
 import { AddTaskForm } from "../components/modal/AddTaskForm";
 
 interface AddTaskModalContextValue {
