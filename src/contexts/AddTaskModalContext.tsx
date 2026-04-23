@@ -1,8 +1,12 @@
 "use client";
 
-import { createContext, useCallback, useContext, useState } from "react";
-import { Modal } from "../components/modal";
-import { AddTaskForm } from "../components/modal/AddTaskForm";
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useState,
+} from "react";
 
 interface AddTaskModalContextValue {
   isOpen: boolean;
@@ -14,7 +18,13 @@ const AddTaskModalContext = createContext<AddTaskModalContextValue | null>(
   null,
 );
 
-export const AddTaskModalProvider = ({ children }) => {
+type AddTaskModalProviderProps = {
+  children: ReactNode;
+};
+
+export const AddTaskModalProvider = ({
+  children,
+}: AddTaskModalProviderProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const open = useCallback(() => setIsOpen(true), []);
   const close = useCallback(() => setIsOpen(false), []);
@@ -24,9 +34,6 @@ export const AddTaskModalProvider = ({ children }) => {
       value={{ isOpen, openModal: open, closeModal: close }}
     >
       {children}
-      <Modal isOpen={isOpen} onClose={close} title="タスクを追加">
-        <AddTaskForm onDone={close} />
-      </Modal>
     </AddTaskModalContext.Provider>
   );
 };
