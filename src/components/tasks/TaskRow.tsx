@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from "react";
 import { TaskStatus } from "@/types";
 import { TaskParams } from "@/app/api/datastore/models/task";
 import { ProjectParams } from "@/app/api/datastore/models/project";
@@ -6,6 +5,7 @@ import { TASK_STATUSES, STATUS_LABELS } from "@/constants";
 import Link from "next/link";
 import { Select } from "../select";
 import { IoArrowForward } from "react-icons/io5";
+import { EditableField } from "../editableField";
 
 type TaskPatch = {
   title?: string;
@@ -21,49 +21,26 @@ type Props = {
 };
 
 export const TaskRow = ({ task, projects, onUpdate }: Props) => {
-  const [draftTitle, setDraftTitle] = useState(task.title);
-  const titleInputRef = useRef<HTMLInputElement>(null);
-  const [isEditingTitle, setIsEditingTitle] = useState(false);
-
-  useEffect(() => {
-    if (isEditingTitle && titleInputRef.current) {
-      titleInputRef.current.focus();
-    }
-  }, [isEditingTitle]);
+  const deadlineValue = task.deadline
+    ? new Date(task.deadline).toISOString().split("T")[0]
+    : "";
 
   return (
-    <div className="flex py-2 transition-all duration-500">
+    <div className="relative flex py-2 transition-all duration-500 hover:shadow-[1px_1px_3px_1px_#22222210] hover:scale-[1.01] hover:z-10">
       {/* タイトル */}
       <div className="pl-4 w-1/2 flex items-center py-2 text-xs">
         <div className="cursor-pointer w-full ">
-          {isEditingTitle ? (
-            <div>
-              <input
-                type="text"
-                ref={titleInputRef}
-                value={draftTitle}
-                onChange={(e) => {
-                  setDraftTitle(e.target.value);
-                }}
-                onBlur={async () => {
-                  setIsEditingTitle(false);
-                  if (draftTitle !== task.title) {
-                    await onUpdate({ title: draftTitle });
-                  }
-                }}
-              />
-            </div>
-          ) : (
-            <p onClick={() => setIsEditingTitle(true)} className="min-w-full">
-              {task.title}
-            </p>
-          )}
+          <EditableField
+            value={task.title}
+            displayClassName="min-w-full"
+            onCommit={(title) => onUpdate({ title })}
+          />
         </div>
       </div>
       {/* プロジェクト */}
       <div className="w-[14%] flex items-center py-2 text-xs">
         <div className="cursor-pointer w-full flex items-center justify-between relative">
-          <span className="min-h-full">
+          <span className="min-h-full w-full">
             <Select
               options={projects.map((project) => ({
                 label: project.name,
@@ -79,7 +56,7 @@ export const TaskRow = ({ task, projects, onUpdate }: Props) => {
       {/* ステータス */}
       <div className="w-[12%] flex items-center py-2 text-xs">
         <div className="cursor-pointer w-full flex items-center justify-between">
-          <span className="min-h-full">
+          <span className="min-h-full w-full">
             <Select
               options={TASK_STATUSES.map((status) => ({
                 label: STATUS_LABELS[status],
@@ -96,17 +73,13 @@ export const TaskRow = ({ task, projects, onUpdate }: Props) => {
       <div className="w-1/10 flex items-center py-2 text-xs">
         <div className="cursor-pointer w-full flex items-center">
           <span className="min-w-full">
-            <input
-              type="date"
-              className="min-w-full"
-              value={
-                task.deadline
-                  ? new Date(task.deadline).toISOString().split("T")[0]
-                  : ""
-              }
-              onChange={(e) => {
-                onUpdate({ deadline: e.target.value });
-              }}
+            <EditableField
+              value={deadlineValue}
+              displayValue={deadlineValue || "-"}
+              inputType="date"
+              inputClassName="min-w-full"
+              displayClassName="min-w-full"
+              onCommit={(deadline) => onUpdate({ deadline })}
             />
           </span>
         </div>
