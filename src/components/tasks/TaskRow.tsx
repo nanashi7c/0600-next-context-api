@@ -77,7 +77,7 @@ export const TaskRow = ({ task, projects, onUpdate }: Props) => {
               value={deadlineValue}
               displayValue={deadlineValue || "-"}
               inputType="date"
-              inputClassName="min-w-full"
+              inputClassName="min-w-full bg-[#fafafa] rounded border-0 focus:outline-none shadow-[0_0_4px_1px_#22222210] py-1 px-3"
               displayClassName="min-w-full"
               onCommit={(deadline) => onUpdate({ deadline })}
             />

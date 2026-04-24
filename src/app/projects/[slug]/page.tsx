@@ -28,7 +28,7 @@ export default function ProjectPage({
   if (!project) return <div>Loading...</div>;
 
   return (
-    <div className="p-8 ">
+    <div className="p-8 w-full h-full overflow-scroll">
       <div className="p-8">
         <div
           className="border-l-[5px] p-4 bg-(--background-color) transition-all duration-500 rounded border border-(--weak-border-color)"
